@@ -21,6 +21,7 @@ export const cursos = [
 export const rooms = [
   {
     id: "celular",
+    imagem: "celular.webp",
     cursos: ["ef", "fisio"],
     eixo: "Fisiologia celular, transporte de substâncias e potenciais de ação",
     titulo: "A Célula Sitiada",
@@ -86,6 +87,7 @@ export const rooms = [
   },
   {
     id: "muscular",
+    imagem: "muscular.webp",
     cursos: ["ef", "fisio"],
     eixo: "Excitabilidade e sistema muscular",
     titulo: "O Músculo em Silêncio",
@@ -147,6 +149,7 @@ export const rooms = [
   },
   {
     id: "osteoarticular",
+    imagem: "osteoarticular.webp",
     cursos: ["ef"],
     eixo: "Sistema osteoarticular",
     titulo: "O Osso que Se Reconstrói",
@@ -193,6 +196,7 @@ export const rooms = [
   },
   {
     id: "cardiovascular",
+    imagem: "cardiovascular.webp",
     cursos: ["ef", "fisio"],
     eixo: "Sistema cardiovascular",
     titulo: "O Circuito da Pressão",
@@ -251,6 +255,7 @@ export const rooms = [
   },
   {
     id: "respiratorio",
+    imagem: "respiratorio.webp",
     cursos: ["ef", "fisio"],
     eixo: "Sistema respiratório",
     titulo: "O Fôlego Perdido",
@@ -307,6 +312,7 @@ export const rooms = [
   },
   {
     id: "integracao",
+    imagem: "integracao.webp",
     cursos: ["ef", "fisio"],
     eixo: "Integração cardiorrespiratória",
     titulo: "A Marcha do Oxigênio",
@@ -511,14 +517,18 @@ function comporSala(base, cursoId) {
   const curso = cursos.find((item) => item.id === cursoId);
   if (!curso || !base.cursos.includes(cursoId)) return undefined;
   const especifica = base.id === "cardiovascular" ? pilotosCardiovasculares[cursoId] : null;
-  return {
+  const sala = {
     ...base,
     ...(especifica || {}),
     cursoId,
     cursoNome: curso.nome,
     percursoId: `${cursoId}-${base.id}`,
     tutorUrl: tutores[cursoId].url,
-    tempoSegundos: 600,
+  };
+  return {
+    ...sala,
+    tempoPorQuestao: 60,
+    tempoSegundos: sala.puzzles.length * 60,
   };
 }
 

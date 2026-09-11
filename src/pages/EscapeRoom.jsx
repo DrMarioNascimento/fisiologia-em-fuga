@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, Lock, Unlock, Check, Clock, Trophy, RotateCcw, Lightbulb } from "lucide-react";
 import { getRoom } from "@/data/escapeRooms";
+import { prepararPuzzles } from "@/lib/game";
 
 function PuzzleOrdem({ puzzle, onResolver, onTentativa }) {
   const [selecao, setSelecao] = useState([]);
@@ -19,8 +20,8 @@ function PuzzleOrdem({ puzzle, onResolver, onTentativa }) {
 
   const confirmar = () => {
     onTentativa();
-    const correta = puzzle.correta.map((i) => String(itens[i]));
-    const escolha = selecao.map((i) => String(itens[i]));
+    const correta = puzzle.corretaIds;
+    const escolha = selecao.map((i) => itens[i].id);
     if (JSON.stringify(correta) === JSON.stringify(escolha)) {
       onResolver(true);
     } else {
@@ -37,7 +38,7 @@ function PuzzleOrdem({ puzzle, onResolver, onTentativa }) {
           const sel = ordem >= 0;
           return (
             <button
-              key={idx}
+              key={it.id}
               onClick={() => toggle(idx)}
               className={`w-full text-left rounded-xl border px-4 py-3 text-sm transition-colors flex items-center gap-3 ${
                 sel
@@ -52,7 +53,7 @@ function PuzzleOrdem({ puzzle, onResolver, onTentativa }) {
               >
                 {sel ? ordem + 1 : ""}
               </span>
-              {it}
+              {it.texto}
             </button>
           );
         })}
@@ -78,7 +79,7 @@ function PuzzleMultipla({ puzzle, onResolver, onTentativa }) {
   const escolher = (i) => {
     onTentativa();
     setEscolha(i);
-    if (i === puzzle.correta) {
+    if (puzzle.opcoes[i].correta) {
       setErrado(false);
       onResolver(true);
     } else {
@@ -92,7 +93,7 @@ function PuzzleMultipla({ puzzle, onResolver, onTentativa }) {
       <div className="space-y-2 mb-3">
         {puzzle.opcoes.map((op, i) => {
           const sel = escolha === i;
-          const correta = i === puzzle.correta;
+          const correta = op.correta;
           const estilo = sel
             ? correta
               ? "border-emerald-500/60 bg-emerald-500/10 text-stone-100"
@@ -100,11 +101,11 @@ function PuzzleMultipla({ puzzle, onResolver, onTentativa }) {
             : "border-stone-800/60 bg-stone-900/30 text-stone-300 hover:border-stone-700";
           return (
             <button
-              key={i}
+              key={op.id}
               onClick={() => escolher(i)}
               className={`w-full text-left rounded-xl border px-4 py-3 text-sm transition-colors ${estilo}`}
             >
-              {op}
+              {op.texto}
             </button>
           );
         })}
@@ -133,10 +134,7 @@ function PuzzleVerdadeiro({ puzzle, onResolver, onTentativa }) {
     <div>
       <p className="text-sm text-stone-300 mb-4">{pergunta(puzzle)}</p>
       <div className="grid grid-cols-2 gap-3 mb-3">
-        {[
-          { v: true, label: "Verdadeiro" },
-          { v: false, label: "Falso" },
-        ].map((o) => {
+        {puzzle.opcoesVF.map((o) => {
           const sel = escolha === o.v;
           const correta = o.v === puzzle.correta;
           const estilo = sel
@@ -167,6 +165,7 @@ function pergunta(p) {
 export default function EscapeRoom() {
   const { roomId, cursoId } = useParams();
   const room = getRoom(roomId, cursoId);
+  const [puzzlesPartida, setPuzzlesPartida] = useState(() => prepararPuzzles(room?.puzzles ?? []));
   const [resolvidos, setResolvidos] = useState(0);
   const [atual, setAtual] = useState(0);
   const [mostrarExplicacao, setMostrarExplicacao] = useState(false);
@@ -179,10 +178,10 @@ export default function EscapeRoom() {
   const [mostrarDica, setMostrarDica] = useState(false);
 
   useEffect(() => {
-    if (!comecou || escapou || tempoEsgotado) return;
+    if (!comecou || escapou || tempoEsgotado || mostrarExplicacao) return;
     const t = setInterval(() => setSegundos((s) => Math.max(0, s - 1)), 1000);
     return () => clearInterval(t);
-  }, [comecou, escapou, tempoEsgotado]);
+  }, [comecou, escapou, tempoEsgotado, mostrarExplicacao]);
 
   useEffect(() => {
     if (comecou && segundos === 0 && !escapou) setTempoEsgotado(true);
@@ -199,8 +198,9 @@ export default function EscapeRoom() {
     );
   }
 
-  const total = room.puzzles.length;
-  const puzzle = room.puzzles[atual];
+  const total = puzzlesPartida.length;
+  const puzzle = puzzlesPartida[atual];
+  const imagemSala = `${import.meta.env.BASE_URL}salas/${room.imagem}`;
 
   const resolver = () => {
     setMostrarExplicacao(true);
@@ -219,6 +219,7 @@ export default function EscapeRoom() {
   };
 
   const reiniciar = () => {
+    setPuzzlesPartida(prepararPuzzles(room.puzzles));
     setResolvidos(0);
     setAtual(0);
     setSegundos(room.tempoSegundos ?? 600);
@@ -240,12 +241,12 @@ export default function EscapeRoom() {
 
   if (!comecou) {
     return (
-      <div className="min-h-screen bg-[#0b0d12] text-stone-100">
-        <div className="max-w-2xl mx-auto px-6 py-10">
-          <a href={room.tutorUrl} className="inline-flex items-center gap-2 text-sm text-stone-400 hover:text-stone-200 mb-8">
+      <div className="escape-scene escape-scene--intro text-stone-100" style={{ "--room-image": `url("${imagemSala}")` }}>
+        <div className="relative z-10 max-w-2xl mx-auto px-5 py-6 min-h-[100svh] flex flex-col">
+          <a href={room.tutorUrl} className="inline-flex items-center gap-2 text-sm text-stone-300 hover:text-white mb-8">
             <ArrowLeft className="w-4 h-4" /> Voltar ao Tutor
           </a>
-          <div className="rounded-2xl border border-amber-700/40 bg-amber-500/5 p-8">
+          <div className="room-glass mt-auto rounded-3xl border border-amber-500/40 p-6 sm:p-8">
             <div className="inline-flex items-center gap-2 text-amber-400/70 text-xs tracking-[0.25em] uppercase mb-4">
               <Lock className="w-4 h-4" /> Escape Room
             </div>
@@ -258,12 +259,12 @@ export default function EscapeRoom() {
                 <Lock className="w-3.5 h-3.5" /> {total} puzzles
               </span>
               <span className="inline-flex items-center gap-1">
-                <Clock className="w-3.5 h-3.5" /> {fmt(room.tempoSegundos ?? 600)}
+                <Clock className="w-3.5 h-3.5" /> 1 min por cadeado · {fmt(room.tempoSegundos)} no total
               </span>
             </div>
             <button
               onClick={() => setComecou(true)}
-              className="w-full rounded-full bg-amber-500 px-6 py-4 text-stone-950 font-medium hover:bg-amber-400"
+              className="w-full rounded-full bg-amber-500 px-6 py-4 text-stone-950 font-semibold hover:bg-amber-400 active:scale-[0.99] transition"
             >
               Entrar na sala
             </button>
@@ -275,14 +276,14 @@ export default function EscapeRoom() {
 
   if (escapou) {
     return (
-      <div className="min-h-screen bg-[#0b0d12] text-stone-100">
-        <div className="max-w-2xl mx-auto px-6 py-10">
+      <div className="escape-scene escape-scene--result text-stone-100" style={{ "--room-image": `url("${imagemSala}")` }}>
+        <div className="relative z-10 max-w-2xl mx-auto px-6 py-10 min-h-[100svh] flex flex-col justify-center">
           <div className="text-center mb-8">
             <Trophy className="w-12 h-12 text-amber-400 mx-auto mb-4" />
             <h1 className="font-display text-3xl font-light mb-2">Você escapou!</h1>
             <p className="text-stone-400 text-sm">{room.titulo}</p>
           </div>
-          <div className="rounded-2xl border border-amber-700/40 bg-amber-500/5 p-6 mb-6 text-center">
+          <div className="room-glass rounded-2xl border border-amber-500/40 p-6 mb-6 text-center">
             <p className="text-xs text-stone-400 mb-1">Tempo utilizado</p>
             <p className="font-display text-4xl text-amber-400">{fmt(tempoUsado)}</p>
             <div className="mt-4 grid grid-cols-3 gap-3 text-xs text-stone-400">
@@ -310,10 +311,11 @@ export default function EscapeRoom() {
 
   if (tempoEsgotado) {
     return (
-      <div className="min-h-screen bg-[#0b0d12] text-stone-100 flex items-center justify-center px-6">
-        <div className="w-full max-w-md text-center">
-          <Clock className="w-12 h-12 text-red-400 mx-auto mb-4" />
-          <h1 className="font-display text-3xl font-light mb-2">O tempo terminou</h1>
+      <div className="escape-scene escape-scene--timeout text-stone-100 flex items-center justify-center px-6" style={{ "--room-image": `url("${imagemSala}")` }}>
+        <div className="room-glass relative z-10 w-full max-w-md rounded-3xl border border-rose-300/40 p-7 text-center">
+          <Clock className="w-12 h-12 text-amber-300 mx-auto mb-4" />
+          <h1 className="font-display text-3xl font-light mb-3">Você ficou preso na sala</h1>
+          <p className="text-stone-200 mb-3">Infelizmente, o tempo terminou. Estude um pouco mais e tente novamente!</p>
           <p className="text-stone-400 mb-6">{resolvidos} de {total} cadeados abertos</p>
           <div className="grid grid-cols-2 gap-3 mb-6 text-sm text-stone-300">
             <div className="rounded-xl border border-stone-800 p-4">{tentativas}<small className="block text-stone-500">tentativas</small></div>
@@ -327,8 +329,8 @@ export default function EscapeRoom() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0b0d12] text-stone-100">
-      <div className="max-w-2xl mx-auto px-6 py-10">
+    <div className="escape-scene escape-scene--play text-stone-100" style={{ "--room-image": `url("${imagemSala}")` }}>
+      <div className="relative z-10 max-w-2xl mx-auto px-5 py-6 sm:py-10 min-h-[100svh]">
         <div className="flex items-center justify-between mb-6">
           <a href={room.tutorUrl} className="inline-flex items-center gap-2 text-sm text-stone-400 hover:text-stone-200">
             <ArrowLeft className="w-4 h-4" /> Tutor
@@ -356,7 +358,7 @@ export default function EscapeRoom() {
           ))}
         </div>
 
-        <div className="rounded-2xl border border-stone-800/60 bg-stone-900/30 p-6">
+        <div className="room-glass rounded-2xl border border-stone-600/60 p-5 sm:p-6">
           <div className="flex items-center gap-2 text-xs text-amber-400/70 mb-4">
             {mostrarExplicacao ? <Unlock className="w-3.5 h-3.5" /> : <Lock className="w-3.5 h-3.5" />}
             {mostrarExplicacao ? "Cadeado aberto" : `Cadeado ${atual + 1}`}

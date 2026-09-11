@@ -8,8 +8,21 @@ Escape rooms didáticos de Fisiologia Humana, organizados por unidade e por curs
 - Fisioterapia: 5 unidades.
 - Motor único de jogo.
 - Cenários e puzzles contextualizados por curso.
+- Sala-base vertical para celular, com ambientação específica por unidade.
 - Acesso direto a partir da unidade correspondente no Tutor.
 - Retorno ao Tutor do mesmo curso ao finalizar ou sair.
+
+## Regras da experiência
+
+- Cada puzzle acrescenta 1 minuto ao tempo total da sala.
+- O cronômetro é contínuo durante a resolução e pausa na explicação pedagógica.
+- As alternativas são embaralhadas quando uma nova partida começa.
+- Um erro não muda a posição das alternativas.
+- Ao esgotar o tempo, o estudante recebe a orientação para revisar a unidade e tentar novamente.
+
+## Identidade das salas
+
+A arquitetura, o enquadramento, o mobiliário e a iluminação formam uma única sala reconhecível. Os objetos de estudo mudam conforme o eixo: celular, muscular, osteoarticular, cardiovascular, respiratório e integração cardiorrespiratória.
 
 As duas experiências cardiovasculares constituem o primeiro lote piloto:
 

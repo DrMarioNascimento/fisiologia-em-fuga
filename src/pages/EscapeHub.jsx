@@ -67,9 +67,16 @@ export default function EscapeHub() {
                 <Link
                   key={`${curso}-${r.id}`}
                   to={`/escape/${curso}/${r.id}`}
-                  className="block rounded-2xl border border-stone-800/60 bg-stone-900/30 p-5 hover:border-amber-700/40 transition-colors"
+                  className="relative block overflow-hidden rounded-2xl border border-stone-800/60 bg-stone-900/70 p-5 hover:border-amber-700/60 transition-colors"
                 >
-                  <div className="flex items-start gap-4">
+                  <img
+                    src={`${import.meta.env.BASE_URL}salas/${r.imagem}`}
+                    alt=""
+                    aria-hidden="true"
+                    className="absolute inset-y-0 right-0 h-full w-2/5 object-cover opacity-35"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#0b0d12] via-[#0b0d12]/95 to-[#0b0d12]/30" />
+                  <div className="relative flex items-start gap-4">
                     <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-stone-950/60 border border-stone-800 flex items-center justify-center">
                       <Lock className="w-4 h-4 text-amber-400/70" />
                     </div>
@@ -83,7 +90,7 @@ export default function EscapeHub() {
                       </div>
                       <p className="text-xs text-stone-400 mt-1">{r.eixo}</p>
                       <p className="text-xs text-stone-500 mt-2 flex items-center gap-1">
-                        <Clock className="w-3 h-3" /> {r.puzzles.length} puzzles
+                        <Clock className="w-3 h-3" /> {r.puzzles.length} puzzles · {r.puzzles.length} min
                       </p>
                     </div>
                   </div>
