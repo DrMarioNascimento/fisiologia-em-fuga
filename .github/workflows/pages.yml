@@ -34,8 +34,10 @@ jobs:
       - name: Compilar
         run: npm run build
       - name: Configurar Pages
+        if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
       - name: Enviar artefato
+        if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist
