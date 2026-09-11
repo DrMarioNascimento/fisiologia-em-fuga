@@ -1,0 +1,402 @@
+import React, { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
+import { ArrowLeft, Lock, Unlock, Check, Clock, Trophy, RotateCcw, Lightbulb } from "lucide-react";
+import { getRoom } from "@/data/escapeRooms";
+
+function PuzzleOrdem({ puzzle, onResolver, onTentativa }) {
+  const [selecao, setSelecao] = useState([]);
+  const [errado, setErrado] = useState(false);
+  const itens = puzzle.itens;
+
+  const toggle = (idx) => {
+    if (selecao.includes(idx)) {
+      setSelecao(selecao.filter((i) => i !== idx));
+    } else {
+      setSelecao([...selecao, idx]);
+    }
+    setErrado(false);
+  };
+
+  const confirmar = () => {
+    onTentativa();
+    const correta = puzzle.correta.map((i) => String(itens[i]));
+    const escolha = selecao.map((i) => String(itens[i]));
+    if (JSON.stringify(correta) === JSON.stringify(escolha)) {
+      onResolver(true);
+    } else {
+      setErrado(true);
+    }
+  };
+
+  return (
+    <div>
+      <p className="text-sm text-stone-300 mb-4">{pergunta(puzzle)}</p>
+      <div className="space-y-2 mb-4">
+        {itens.map((it, idx) => {
+          const ordem = selecao.indexOf(idx);
+          const sel = ordem >= 0;
+          return (
+            <button
+              key={idx}
+              onClick={() => toggle(idx)}
+              className={`w-full text-left rounded-xl border px-4 py-3 text-sm transition-colors flex items-center gap-3 ${
+                sel
+                  ? "border-amber-500/60 bg-amber-500/10 text-stone-100"
+                  : "border-stone-800/60 bg-stone-900/30 text-stone-300 hover:border-stone-700"
+              }`}
+            >
+              <span
+                className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs ${
+                  sel ? "bg-amber-500 text-stone-950" : "bg-stone-800 text-stone-500"
+                }`}
+              >
+                {sel ? ordem + 1 : ""}
+              </span>
+              {it}
+            </button>
+          );
+        })}
+      </div>
+      {errado && (
+        <p className="text-xs text-red-400 mb-3">Ordem incorreta. Tente de novo.</p>
+      )}
+      <button
+        onClick={confirmar}
+        disabled={selecao.length !== itens.length}
+        className="w-full rounded-full bg-amber-500 px-6 py-3 text-stone-950 font-medium disabled:opacity-40 hover:bg-amber-400"
+      >
+        Confirmar ordem
+      </button>
+    </div>
+  );
+}
+
+function PuzzleMultipla({ puzzle, onResolver, onTentativa }) {
+  const [escolha, setEscolha] = useState(null);
+  const [errado, setErrado] = useState(false);
+
+  const escolher = (i) => {
+    onTentativa();
+    setEscolha(i);
+    if (i === puzzle.correta) {
+      setErrado(false);
+      onResolver(true);
+    } else {
+      setErrado(true);
+    }
+  };
+
+  return (
+    <div>
+      <p className="text-sm text-stone-300 mb-4">{pergunta(puzzle)}</p>
+      <div className="space-y-2 mb-3">
+        {puzzle.opcoes.map((op, i) => {
+          const sel = escolha === i;
+          const correta = i === puzzle.correta;
+          const estilo = sel
+            ? correta
+              ? "border-emerald-500/60 bg-emerald-500/10 text-stone-100"
+              : "border-red-500/60 bg-red-500/10 text-stone-100"
+            : "border-stone-800/60 bg-stone-900/30 text-stone-300 hover:border-stone-700";
+          return (
+            <button
+              key={i}
+              onClick={() => escolher(i)}
+              className={`w-full text-left rounded-xl border px-4 py-3 text-sm transition-colors ${estilo}`}
+            >
+              {op}
+            </button>
+          );
+        })}
+      </div>
+      {errado && <p className="text-xs text-red-400">Resposta incorreta — tente outra.</p>}
+    </div>
+  );
+}
+
+function PuzzleVerdadeiro({ puzzle, onResolver, onTentativa }) {
+  const [escolha, setEscolha] = useState(null);
+  const [errado, setErrado] = useState(false);
+
+  const escolher = (v) => {
+    onTentativa();
+    setEscolha(v);
+    if (v === puzzle.correta) {
+      setErrado(false);
+      onResolver(true);
+    } else {
+      setErrado(true);
+    }
+  };
+
+  return (
+    <div>
+      <p className="text-sm text-stone-300 mb-4">{pergunta(puzzle)}</p>
+      <div className="grid grid-cols-2 gap-3 mb-3">
+        {[
+          { v: true, label: "Verdadeiro" },
+          { v: false, label: "Falso" },
+        ].map((o) => {
+          const sel = escolha === o.v;
+          const correta = o.v === puzzle.correta;
+          const estilo = sel
+            ? correta
+              ? "border-emerald-500/60 bg-emerald-500/10 text-stone-100"
+              : "border-red-500/60 bg-red-500/10 text-stone-100"
+            : "border-stone-800/60 bg-stone-900/30 text-stone-300 hover:border-stone-700";
+          return (
+            <button
+              key={o.label}
+              onClick={() => escolher(o.v)}
+              className={`rounded-xl border px-4 py-4 text-sm font-medium transition-colors ${estilo}`}
+            >
+              {o.label}
+            </button>
+          );
+        })}
+      </div>
+      {errado && <p className="text-xs text-red-400">Resposta incorreta — tente de novo.</p>}
+    </div>
+  );
+}
+
+function pergunta(p) {
+  return p.pergunta;
+}
+
+export default function EscapeRoom() {
+  const { roomId, cursoId } = useParams();
+  const room = getRoom(roomId, cursoId);
+  const [resolvidos, setResolvidos] = useState(0);
+  const [atual, setAtual] = useState(0);
+  const [mostrarExplicacao, setMostrarExplicacao] = useState(false);
+  const [segundos, setSegundos] = useState(room?.tempoSegundos ?? 600);
+  const [comecou, setComecou] = useState(false);
+  const [escapou, setEscapou] = useState(false);
+  const [tempoEsgotado, setTempoEsgotado] = useState(false);
+  const [tentativas, setTentativas] = useState(0);
+  const [dicasUsadas, setDicasUsadas] = useState(0);
+  const [mostrarDica, setMostrarDica] = useState(false);
+
+  useEffect(() => {
+    if (!comecou || escapou || tempoEsgotado) return;
+    const t = setInterval(() => setSegundos((s) => Math.max(0, s - 1)), 1000);
+    return () => clearInterval(t);
+  }, [comecou, escapou, tempoEsgotado]);
+
+  useEffect(() => {
+    if (comecou && segundos === 0 && !escapou) setTempoEsgotado(true);
+  }, [comecou, segundos, escapou]);
+
+  if (!room) {
+    return (
+      <div className="min-h-screen bg-[#0b0d12] text-stone-100 flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-stone-400 mb-4">Sala não encontrada.</p>
+          <Link to="/escape" className="text-amber-400">Voltar ao hub</Link>
+        </div>
+      </div>
+    );
+  }
+
+  const total = room.puzzles.length;
+  const puzzle = room.puzzles[atual];
+
+  const resolver = () => {
+    setMostrarExplicacao(true);
+  };
+
+  const proximo = () => {
+    const novosResolvidos = resolvidos + 1;
+    setResolvidos(novosResolvidos);
+    setMostrarExplicacao(false);
+    setMostrarDica(false);
+    if (novosResolvidos >= total) {
+      setEscapou(true);
+    } else {
+      setAtual(atual + 1);
+    }
+  };
+
+  const reiniciar = () => {
+    setResolvidos(0);
+    setAtual(0);
+    setSegundos(room.tempoSegundos ?? 600);
+    setComecou(false);
+    setEscapou(false);
+    setTempoEsgotado(false);
+    setTentativas(0);
+    setDicasUsadas(0);
+    setMostrarDica(false);
+    setMostrarExplicacao(false);
+  };
+
+  const fmt = (s) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+  const tempoUsado = (room.tempoSegundos ?? 600) - segundos;
+  const abrirDica = () => {
+    if (!mostrarDica) setDicasUsadas((valor) => valor + 1);
+    setMostrarDica(true);
+  };
+
+  if (!comecou) {
+    return (
+      <div className="min-h-screen bg-[#0b0d12] text-stone-100">
+        <div className="max-w-2xl mx-auto px-6 py-10">
+          <a href={room.tutorUrl} className="inline-flex items-center gap-2 text-sm text-stone-400 hover:text-stone-200 mb-8">
+            <ArrowLeft className="w-4 h-4" /> Voltar ao Tutor
+          </a>
+          <div className="rounded-2xl border border-amber-700/40 bg-amber-500/5 p-8">
+            <div className="inline-flex items-center gap-2 text-amber-400/70 text-xs tracking-[0.25em] uppercase mb-4">
+              <Lock className="w-4 h-4" /> Escape Room
+            </div>
+            <h1 className="font-display text-3xl font-light mb-2">{room.titulo}</h1>
+            <p className="text-xs text-stone-500 mb-2">{room.cursoNome} · {room.eixo}</p>
+            {room.piloto && <p className="text-xs uppercase tracking-[0.2em] text-amber-400/80 mb-6">Sala piloto</p>}
+            <p className="text-stone-300/80 leading-relaxed mb-8">{room.cenario}</p>
+            <div className="flex items-center gap-4 text-xs text-stone-400 mb-8">
+              <span className="inline-flex items-center gap-1">
+                <Lock className="w-3.5 h-3.5" /> {total} puzzles
+              </span>
+              <span className="inline-flex items-center gap-1">
+                <Clock className="w-3.5 h-3.5" /> {fmt(room.tempoSegundos ?? 600)}
+              </span>
+            </div>
+            <button
+              onClick={() => setComecou(true)}
+              className="w-full rounded-full bg-amber-500 px-6 py-4 text-stone-950 font-medium hover:bg-amber-400"
+            >
+              Entrar na sala
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (escapou) {
+    return (
+      <div className="min-h-screen bg-[#0b0d12] text-stone-100">
+        <div className="max-w-2xl mx-auto px-6 py-10">
+          <div className="text-center mb-8">
+            <Trophy className="w-12 h-12 text-amber-400 mx-auto mb-4" />
+            <h1 className="font-display text-3xl font-light mb-2">Você escapou!</h1>
+            <p className="text-stone-400 text-sm">{room.titulo}</p>
+          </div>
+          <div className="rounded-2xl border border-amber-700/40 bg-amber-500/5 p-6 mb-6 text-center">
+            <p className="text-xs text-stone-400 mb-1">Tempo utilizado</p>
+            <p className="font-display text-4xl text-amber-400">{fmt(tempoUsado)}</p>
+            <div className="mt-4 grid grid-cols-3 gap-3 text-xs text-stone-400">
+              <span>{total} cadeados</span><span>{tentativas} tentativas</span><span>{dicasUsadas} pistas</span>
+            </div>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <button
+              onClick={reiniciar}
+              className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-amber-500 px-6 py-3 text-stone-950 font-medium hover:bg-amber-400"
+            >
+              <RotateCcw className="w-4 h-4" /> Jogar de novo
+            </button>
+            <a
+              href={room.tutorUrl}
+              className="flex-1 inline-flex items-center justify-center gap-2 rounded-full border border-stone-700 px-6 py-3 text-stone-300 hover:border-stone-600"
+            >
+              Voltar ao Tutor
+            </a>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (tempoEsgotado) {
+    return (
+      <div className="min-h-screen bg-[#0b0d12] text-stone-100 flex items-center justify-center px-6">
+        <div className="w-full max-w-md text-center">
+          <Clock className="w-12 h-12 text-red-400 mx-auto mb-4" />
+          <h1 className="font-display text-3xl font-light mb-2">O tempo terminou</h1>
+          <p className="text-stone-400 mb-6">{resolvidos} de {total} cadeados abertos</p>
+          <div className="grid grid-cols-2 gap-3 mb-6 text-sm text-stone-300">
+            <div className="rounded-xl border border-stone-800 p-4">{tentativas}<small className="block text-stone-500">tentativas</small></div>
+            <div className="rounded-xl border border-stone-800 p-4">{dicasUsadas}<small className="block text-stone-500">pistas</small></div>
+          </div>
+          <button onClick={reiniciar} className="w-full rounded-full bg-amber-500 px-6 py-3 text-stone-950 font-medium">Tentar novamente</button>
+          <a href={room.tutorUrl} className="mt-3 inline-flex text-sm text-stone-400">Voltar ao Tutor</a>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-[#0b0d12] text-stone-100">
+      <div className="max-w-2xl mx-auto px-6 py-10">
+        <div className="flex items-center justify-between mb-6">
+          <a href={room.tutorUrl} className="inline-flex items-center gap-2 text-sm text-stone-400 hover:text-stone-200">
+            <ArrowLeft className="w-4 h-4" /> Tutor
+          </a>
+          <div className="flex items-center gap-3 text-xs">
+            <span className="text-stone-500">Cadeado {atual + 1}/{total}</span>
+            <span className="inline-flex items-center gap-1 text-amber-400/80">
+              <Clock className="w-3.5 h-3.5" /> {fmt(segundos)} restantes
+            </span>
+          </div>
+        </div>
+
+        <h1 className="font-display text-2xl font-light mb-1">{room.titulo}</h1>
+        <p className="text-xs text-stone-500 mb-6">{room.eixo}</p>
+
+        {/* Cadeados */}
+        <div className="flex gap-2 mb-8">
+          {room.puzzles.map((_, i) => (
+            <div
+              key={i}
+              className={`flex-1 h-1.5 rounded-full ${
+                i < resolvidos ? "bg-amber-500" : i === atual ? "bg-stone-600" : "bg-stone-800"
+              }`}
+            />
+          ))}
+        </div>
+
+        <div className="rounded-2xl border border-stone-800/60 bg-stone-900/30 p-6">
+          <div className="flex items-center gap-2 text-xs text-amber-400/70 mb-4">
+            {mostrarExplicacao ? <Unlock className="w-3.5 h-3.5" /> : <Lock className="w-3.5 h-3.5" />}
+            {mostrarExplicacao ? "Cadeado aberto" : `Cadeado ${atual + 1}`}
+          </div>
+
+          {!mostrarExplicacao ? (
+            <>
+              {puzzle.dica && (
+                <div className="mb-4">
+                  <button onClick={abrirDica} className="inline-flex items-center gap-2 text-xs text-amber-400/80 hover:text-amber-300">
+                    <Lightbulb className="w-3.5 h-3.5" /> {mostrarDica ? "Pista aberta" : "Abrir uma pista"}
+                  </button>
+                  {mostrarDica && <p className="mt-2 rounded-xl border border-amber-700/30 bg-amber-500/10 p-3 text-sm text-stone-300">{puzzle.dica}</p>}
+                </div>
+              )}
+              {puzzle.tipo === "ordem" && <PuzzleOrdem key={atual} puzzle={puzzle} onResolver={resolver} onTentativa={() => setTentativas((valor) => valor + 1)} />}
+              {puzzle.tipo === "multipla" && <PuzzleMultipla key={atual} puzzle={puzzle} onResolver={resolver} onTentativa={() => setTentativas((valor) => valor + 1)} />}
+              {puzzle.tipo === "verdadeiro" && <PuzzleVerdadeiro key={atual} puzzle={puzzle} onResolver={resolver} onTentativa={() => setTentativas((valor) => valor + 1)} />}
+            </>
+          ) : (
+            <div>
+              <div className="inline-flex items-center gap-2 text-emerald-400 text-sm mb-4">
+                <Check className="w-4 h-4" /> Resolvido!
+              </div>
+              <div className="rounded-xl bg-amber-500/10 border border-amber-700/30 p-4 mb-6">
+                <div className="flex items-center gap-2 text-xs text-amber-400/70 mb-2">
+                  <Lightbulb className="w-3.5 h-3.5" /> Por quê?
+                </div>
+                <p className="text-sm text-stone-200 leading-relaxed">{puzzle.explicacao}</p>
+              </div>
+              <button
+                onClick={proximo}
+                className="w-full rounded-full bg-amber-500 px-6 py-3 text-stone-950 font-medium hover:bg-amber-400"
+              >
+                {resolvidos + 1 >= total ? "Escapar!" : "Próximo cadeado"}
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
