@@ -7,7 +7,7 @@ export default function EscapeHub() {
   const [curso, setCurso] = useState(null);
 
   return (
-    <div className="min-h-screen bg-[#0b0d12] text-stone-100">
+    <div className="escape-app min-h-screen bg-[#0d2b34] text-stone-100">
       <div className="max-w-2xl mx-auto px-6 py-10">
         <Link
           to="/"
@@ -16,7 +16,7 @@ export default function EscapeHub() {
           <ArrowLeft className="w-4 h-4" /> Voltar
         </Link>
 
-        <div className="inline-flex items-center gap-2 text-amber-400/80 text-xs tracking-[0.3em] uppercase mb-4">
+        <div className="inline-flex items-center gap-2 text-amber-300 text-xs tracking-[0.3em] uppercase mb-4">
           <KeyRound className="w-4 h-4" /> Escape Room
         </div>
         <h1 className="font-display text-4xl font-light mb-3">Fisiologia em Fuga</h1>
@@ -31,7 +31,7 @@ export default function EscapeHub() {
               <button
                 key={c.id}
                 onClick={() => setCurso(c.id)}
-                className="text-left rounded-2xl border border-stone-800/60 bg-stone-900/30 p-6 hover:border-amber-700/40 transition-colors"
+                className="escape-panel-card text-left p-6"
               >
                 <div
                   className="w-10 h-10 rounded-xl mb-4 flex items-center justify-center"
@@ -48,7 +48,7 @@ export default function EscapeHub() {
           <div>
             <button
               onClick={() => setCurso(null)}
-              className="inline-flex items-center gap-2 text-sm text-stone-400 hover:text-stone-200 mb-6"
+              className="escape-key-action inline-flex items-center gap-2 text-sm mb-6"
             >
               <ArrowLeft className="w-4 h-4" /> Trocar curso
             </button>
@@ -67,7 +67,7 @@ export default function EscapeHub() {
                 <Link
                   key={`${curso}-${r.id}`}
                   to={`/escape/${curso}/${r.id}`}
-                  className="relative block overflow-hidden rounded-2xl border border-stone-800/60 bg-stone-900/70 p-5 hover:border-amber-700/60 transition-colors"
+                  className="escape-panel-card relative block overflow-hidden p-5"
                 >
                   <img
                     src={`${import.meta.env.BASE_URL}salas/${r.imagem}`}
@@ -77,8 +77,8 @@ export default function EscapeHub() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-[#0b0d12] via-[#0b0d12]/95 to-[#0b0d12]/30" />
                   <div className="relative flex items-start gap-4">
-                    <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-stone-950/60 border border-stone-800 flex items-center justify-center">
-                      <Lock className="w-4 h-4 text-amber-400/70" />
+                    <div className="escape-lock-emblem flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center">
+                      <Lock className="w-4 h-4" />
                     </div>
                     <div className="flex-1">
                       <p className="text-xs text-stone-500 mb-1">

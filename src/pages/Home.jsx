@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { KeyRound, ArrowRight, BookOpen, Clock, Lock } from "lucide-react";
+import { KeyRound, BookOpen, Clock, Lock } from "lucide-react";
 import { cursos, roomsPorCurso } from "@/data/escapeRooms";
 
 export default function Home() {
@@ -9,14 +9,14 @@ export default function Home() {
   const totalPuzzles = percursos.reduce((s, room) => s + room.puzzles.length, 0);
 
   return (
-    <div className="min-h-screen bg-[#0b0d12] text-stone-100">
+    <div className="escape-app min-h-screen bg-[#0d2b34] text-stone-100">
       <header className="relative overflow-hidden">
         <div className="absolute inset-0 opacity-30">
-          <div className="absolute -top-24 -left-24 h-96 w-96 rounded-full bg-amber-700/20 blur-3xl" />
-          <div className="absolute top-40 -right-24 h-96 w-96 rounded-full bg-sky-700/20 blur-3xl" />
+          <div className="absolute -top-24 -left-24 h-96 w-96 rounded-full bg-emerald-500/25 blur-3xl" />
+          <div className="absolute top-40 -right-24 h-96 w-96 rounded-full bg-teal-300/20 blur-3xl" />
         </div>
         <div className="relative max-w-3xl mx-auto px-6 pt-20 pb-16 text-center">
-          <div className="inline-flex items-center gap-2 text-amber-400/80 text-xs tracking-[0.3em] uppercase mb-6">
+          <div className="inline-flex items-center gap-2 text-amber-300 text-xs tracking-[0.3em] uppercase mb-6">
             <KeyRound className="w-4 h-4" /> Fisiologia Interativa
           </div>
           <h1 className="font-display text-5xl sm:text-6xl font-light tracking-tight leading-[1.05]">
@@ -33,9 +33,9 @@ export default function Home() {
           <div className="mt-10">
             <Link
               to="/escape"
-              className="inline-flex items-center gap-2 rounded-full bg-amber-500 px-8 py-4 text-stone-950 font-medium tracking-wide hover:bg-amber-400 transition-colors"
+              className="escape-btn escape-btn--primary px-8 py-4 font-semibold tracking-wide"
             >
-              Entrar <ArrowRight className="w-4 h-4" />
+              <KeyRound className="w-4 h-4" /> Entrar
             </Link>
           </div>
         </div>
@@ -44,15 +44,15 @@ export default function Home() {
       <section className="max-w-3xl mx-auto px-6 pb-16">
         <div className="grid grid-cols-3 gap-4 mb-10">
           <div className="text-center">
-            <p className="font-display text-3xl text-amber-400">{totalSalas}</p>
+            <p className="font-display text-3xl text-emerald-300">{totalSalas}</p>
             <p className="text-xs text-stone-500 mt-1">salas</p>
           </div>
           <div className="text-center">
-            <p className="font-display text-3xl text-amber-400">{cursos.length}</p>
+            <p className="font-display text-3xl text-emerald-300">{cursos.length}</p>
             <p className="text-xs text-stone-500 mt-1">cursos</p>
           </div>
           <div className="text-center">
-            <p className="font-display text-3xl text-amber-400">{totalPuzzles}</p>
+            <p className="font-display text-3xl text-emerald-300">{totalPuzzles}</p>
             <p className="text-xs text-stone-500 mt-1">puzzles</p>
           </div>
         </div>
@@ -64,7 +64,7 @@ export default function Home() {
               <Link
                 key={c.id}
                 to="/escape"
-                className="rounded-2xl border border-stone-800/60 bg-stone-900/30 p-6 hover:border-amber-700/40 transition-colors"
+                className="escape-panel-card p-6"
               >
                 <div
                   className="w-10 h-10 rounded-xl mb-4 flex items-center justify-center"

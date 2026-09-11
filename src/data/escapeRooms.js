@@ -7,13 +7,13 @@ export const cursos = [
     id: "ef",
     nome: "Educação Física",
     desc: "Seis eixos: do potencial de ação à integração cardiorrespiratória.",
-    cor: "#c8a24a",
+    cor: "#65d5cc",
   },
   {
     id: "fisio",
     nome: "Fisioterapia",
     desc: "Cinco unidades: sem o eixo osteoarticular, foco clínico.",
-    cor: "#3b8fb0",
+    cor: "#8ee4ad",
   },
 ];
 

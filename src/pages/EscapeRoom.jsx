@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, Lock, Unlock, Check, Clock, Trophy, RotateCcw, Lightbulb } from "lucide-react";
+import { ArrowLeft, Lock, Unlock, Clock, Trophy, RotateCcw, Lightbulb, KeyRound } from "lucide-react";
 import { getRoom } from "@/data/escapeRooms";
 import { prepararPuzzles } from "@/lib/game";
 
@@ -40,16 +40,10 @@ function PuzzleOrdem({ puzzle, onResolver, onTentativa }) {
             <button
               key={it.id}
               onClick={() => toggle(idx)}
-              className={`w-full text-left rounded-xl border px-4 py-3 text-sm transition-colors flex items-center gap-3 ${
-                sel
-                  ? "border-amber-500/60 bg-amber-500/10 text-stone-100"
-                  : "border-stone-800/60 bg-stone-900/30 text-stone-300 hover:border-stone-700"
-              }`}
+              className={`escape-option w-full text-left px-4 py-3 text-sm flex items-center gap-3 ${sel ? "is-selected" : ""}`}
             >
               <span
-                className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs ${
-                  sel ? "bg-amber-500 text-stone-950" : "bg-stone-800 text-stone-500"
-                }`}
+                className={`escape-order-badge flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs ${sel ? "is-selected" : ""}`}
               >
                 {sel ? ordem + 1 : ""}
               </span>
@@ -64,9 +58,9 @@ function PuzzleOrdem({ puzzle, onResolver, onTentativa }) {
       <button
         onClick={confirmar}
         disabled={selecao.length !== itens.length}
-        className="w-full rounded-full bg-amber-500 px-6 py-3 text-stone-950 font-medium disabled:opacity-40 hover:bg-amber-400"
+        className="escape-btn escape-btn--primary w-full px-6 py-3 font-semibold disabled:opacity-40"
       >
-        Confirmar ordem
+        <KeyRound className="w-4 h-4" /> Confirmar ordem
       </button>
     </div>
   );
@@ -94,16 +88,12 @@ function PuzzleMultipla({ puzzle, onResolver, onTentativa }) {
         {puzzle.opcoes.map((op, i) => {
           const sel = escolha === i;
           const correta = op.correta;
-          const estilo = sel
-            ? correta
-              ? "border-emerald-500/60 bg-emerald-500/10 text-stone-100"
-              : "border-red-500/60 bg-red-500/10 text-stone-100"
-            : "border-stone-800/60 bg-stone-900/30 text-stone-300 hover:border-stone-700";
+          const estilo = sel ? (correta ? "is-correct" : "is-wrong") : "";
           return (
             <button
               key={op.id}
               onClick={() => escolher(i)}
-              className={`w-full text-left rounded-xl border px-4 py-3 text-sm transition-colors ${estilo}`}
+              className={`escape-option w-full text-left px-4 py-3 text-sm ${estilo}`}
             >
               {op.texto}
             </button>
@@ -137,16 +127,12 @@ function PuzzleVerdadeiro({ puzzle, onResolver, onTentativa }) {
         {puzzle.opcoesVF.map((o) => {
           const sel = escolha === o.v;
           const correta = o.v === puzzle.correta;
-          const estilo = sel
-            ? correta
-              ? "border-emerald-500/60 bg-emerald-500/10 text-stone-100"
-              : "border-red-500/60 bg-red-500/10 text-stone-100"
-            : "border-stone-800/60 bg-stone-900/30 text-stone-300 hover:border-stone-700";
+          const estilo = sel ? (correta ? "is-correct" : "is-wrong") : "";
           return (
             <button
               key={o.label}
               onClick={() => escolher(o.v)}
-              className={`rounded-xl border px-4 py-4 text-sm font-medium transition-colors ${estilo}`}
+              className={`escape-option px-4 py-4 text-sm font-medium ${estilo}`}
             >
               {o.label}
             </button>
@@ -241,14 +227,14 @@ export default function EscapeRoom() {
 
   if (!comecou) {
     return (
-      <div className="escape-scene escape-scene--intro text-stone-100" style={{ "--room-image": `url("${imagemSala}")` }}>
+      <div className="escape-app escape-scene escape-scene--intro text-stone-100" style={{ "--room-image": `url("${imagemSala}")` }}>
         <div className="relative z-10 max-w-2xl mx-auto px-5 py-6 min-h-[100svh] flex flex-col">
           <a href={room.tutorUrl} className="inline-flex items-center gap-2 text-sm text-stone-300 hover:text-white mb-8">
             <ArrowLeft className="w-4 h-4" /> Voltar ao Tutor
           </a>
           <div className="room-glass mt-auto rounded-3xl border border-amber-500/40 p-6 sm:p-8">
-            <div className="inline-flex items-center gap-2 text-amber-400/70 text-xs tracking-[0.25em] uppercase mb-4">
-              <Lock className="w-4 h-4" /> Escape Room
+            <div className="inline-flex items-center gap-2 text-amber-300 text-xs tracking-[0.25em] uppercase mb-4">
+              <KeyRound className="w-4 h-4" /> Escape Room
             </div>
             <h1 className="font-display text-3xl font-light mb-2">{room.titulo}</h1>
             <p className="text-xs text-stone-500 mb-2">{room.cursoNome} · {room.eixo}</p>
@@ -264,9 +250,9 @@ export default function EscapeRoom() {
             </div>
             <button
               onClick={() => setComecou(true)}
-              className="w-full rounded-full bg-amber-500 px-6 py-4 text-stone-950 font-semibold hover:bg-amber-400 active:scale-[0.99] transition"
+              className="escape-btn escape-btn--primary w-full px-6 py-4 font-semibold"
             >
-              Entrar na sala
+              <KeyRound className="w-5 h-5" /> Pegar a chave e entrar
             </button>
           </div>
         </div>
@@ -276,10 +262,10 @@ export default function EscapeRoom() {
 
   if (escapou) {
     return (
-      <div className="escape-scene escape-scene--result text-stone-100" style={{ "--room-image": `url("${imagemSala}")` }}>
+      <div className="escape-app escape-scene escape-scene--result text-stone-100" style={{ "--room-image": `url("${imagemSala}")` }}>
         <div className="relative z-10 max-w-2xl mx-auto px-6 py-10 min-h-[100svh] flex flex-col justify-center">
           <div className="text-center mb-8">
-            <Trophy className="w-12 h-12 text-amber-400 mx-auto mb-4" />
+            <div className="inline-flex items-center gap-3 text-amber-300 mb-4"><Trophy className="w-12 h-12" /><KeyRound className="w-9 h-9" /></div>
             <h1 className="font-display text-3xl font-light mb-2">Você escapou!</h1>
             <p className="text-stone-400 text-sm">{room.titulo}</p>
           </div>
@@ -293,13 +279,13 @@ export default function EscapeRoom() {
           <div className="flex flex-col sm:flex-row gap-3">
             <button
               onClick={reiniciar}
-              className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-amber-500 px-6 py-3 text-stone-950 font-medium hover:bg-amber-400"
+              className="escape-btn escape-btn--primary flex-1 px-6 py-3 font-semibold"
             >
               <RotateCcw className="w-4 h-4" /> Jogar de novo
             </button>
             <a
               href={room.tutorUrl}
-              className="flex-1 inline-flex items-center justify-center gap-2 rounded-full border border-stone-700 px-6 py-3 text-stone-300 hover:border-stone-600"
+              className="escape-btn escape-btn--secondary flex-1 px-6 py-3 font-semibold"
             >
               Voltar ao Tutor
             </a>
@@ -311,9 +297,9 @@ export default function EscapeRoom() {
 
   if (tempoEsgotado) {
     return (
-      <div className="escape-scene escape-scene--timeout text-stone-100 flex items-center justify-center px-6" style={{ "--room-image": `url("${imagemSala}")` }}>
+      <div className="escape-app escape-scene escape-scene--timeout text-stone-100 flex items-center justify-center px-6" style={{ "--room-image": `url("${imagemSala}")` }}>
         <div className="room-glass relative z-10 w-full max-w-md rounded-3xl border border-rose-300/40 p-7 text-center">
-          <Clock className="w-12 h-12 text-amber-300 mx-auto mb-4" />
+          <div className="mx-auto mb-4 flex w-fit items-center gap-2 text-amber-300"><Lock className="w-12 h-12" /><Clock className="w-8 h-8" /></div>
           <h1 className="font-display text-3xl font-light mb-3">Você ficou preso na sala</h1>
           <p className="text-stone-200 mb-3">Infelizmente, o tempo terminou. Estude um pouco mais e tente novamente!</p>
           <p className="text-stone-400 mb-6">{resolvidos} de {total} cadeados abertos</p>
@@ -321,7 +307,7 @@ export default function EscapeRoom() {
             <div className="rounded-xl border border-stone-800 p-4">{tentativas}<small className="block text-stone-500">tentativas</small></div>
             <div className="rounded-xl border border-stone-800 p-4">{dicasUsadas}<small className="block text-stone-500">pistas</small></div>
           </div>
-          <button onClick={reiniciar} className="w-full rounded-full bg-amber-500 px-6 py-3 text-stone-950 font-medium">Tentar novamente</button>
+          <button onClick={reiniciar} className="escape-btn escape-btn--primary w-full px-6 py-3 font-semibold"><KeyRound className="w-4 h-4" /> Tentar novamente</button>
           <a href={room.tutorUrl} className="mt-3 inline-flex text-sm text-stone-400">Voltar ao Tutor</a>
         </div>
       </div>
@@ -329,15 +315,15 @@ export default function EscapeRoom() {
   }
 
   return (
-    <div className="escape-scene escape-scene--play text-stone-100" style={{ "--room-image": `url("${imagemSala}")` }}>
+    <div className="escape-app escape-scene escape-scene--play text-stone-100" style={{ "--room-image": `url("${imagemSala}")` }}>
       <div className="relative z-10 max-w-2xl mx-auto px-5 py-6 sm:py-10 min-h-[100svh]">
         <div className="flex items-center justify-between mb-6">
           <a href={room.tutorUrl} className="inline-flex items-center gap-2 text-sm text-stone-400 hover:text-stone-200">
             <ArrowLeft className="w-4 h-4" /> Tutor
           </a>
           <div className="flex items-center gap-3 text-xs">
-            <span className="text-stone-500">Cadeado {atual + 1}/{total}</span>
-            <span className="inline-flex items-center gap-1 text-amber-400/80">
+            <span className="text-emerald-100/70">Cadeado {atual + 1}/{total}</span>
+            <span className="inline-flex items-center gap-1 text-emerald-300">
               <Clock className="w-3.5 h-3.5" /> {fmt(segundos)} restantes
             </span>
           </div>
@@ -346,20 +332,20 @@ export default function EscapeRoom() {
         <h1 className="font-display text-2xl font-light mb-1">{room.titulo}</h1>
         <p className="text-xs text-stone-500 mb-6">{room.eixo}</p>
 
-        {/* Cadeados */}
-        <div className="flex gap-2 mb-8">
-          {room.puzzles.map((_, i) => (
-            <div
-              key={i}
-              className={`flex-1 h-1.5 rounded-full ${
-                i < resolvidos ? "bg-amber-500" : i === atual ? "bg-stone-600" : "bg-stone-800"
-              }`}
-            />
-          ))}
+        <div className="escape-lock-track mb-8" aria-label={`${resolvidos} de ${total} cadeados abertos`}>
+          {puzzlesPartida.map((_, i) => {
+            const aberto = i < resolvidos || (i === atual && mostrarExplicacao);
+            const corrente = i === atual && !mostrarExplicacao;
+            return (
+              <div key={i} className={`escape-lock-step ${aberto ? "is-open" : ""} ${corrente ? "is-current" : ""}`} aria-label={aberto ? `Cadeado ${i + 1} aberto` : corrente ? `Cadeado ${i + 1} atual` : `Cadeado ${i + 1} fechado`}>
+                {aberto ? <Unlock className="w-4 h-4" /> : corrente ? <KeyRound className="w-4 h-4" /> : <Lock className="w-4 h-4" />}
+              </div>
+            );
+          })}
         </div>
 
         <div className="room-glass rounded-2xl border border-stone-600/60 p-5 sm:p-6">
-          <div className="flex items-center gap-2 text-xs text-amber-400/70 mb-4">
+          <div className="flex items-center gap-2 text-xs text-emerald-300 mb-4">
             {mostrarExplicacao ? <Unlock className="w-3.5 h-3.5" /> : <Lock className="w-3.5 h-3.5" />}
             {mostrarExplicacao ? "Cadeado aberto" : `Cadeado ${atual + 1}`}
           </div>
@@ -368,8 +354,8 @@ export default function EscapeRoom() {
             <>
               {puzzle.dica && (
                 <div className="mb-4">
-                  <button onClick={abrirDica} className="inline-flex items-center gap-2 text-xs text-amber-400/80 hover:text-amber-300">
-                    <Lightbulb className="w-3.5 h-3.5" /> {mostrarDica ? "Pista aberta" : "Abrir uma pista"}
+                  <button onClick={abrirDica} className="escape-key-action inline-flex items-center gap-2 text-xs">
+                    <KeyRound className="w-3.5 h-3.5" /> {mostrarDica ? "Pista aberta" : "Usar uma chave de pista"}
                   </button>
                   {mostrarDica && <p className="mt-2 rounded-xl border border-amber-700/30 bg-amber-500/10 p-3 text-sm text-stone-300">{puzzle.dica}</p>}
                 </div>
@@ -380,8 +366,8 @@ export default function EscapeRoom() {
             </>
           ) : (
             <div>
-              <div className="inline-flex items-center gap-2 text-emerald-400 text-sm mb-4">
-                <Check className="w-4 h-4" /> Resolvido!
+              <div className="inline-flex items-center gap-2 text-emerald-300 text-sm mb-4">
+                <Unlock className="w-4 h-4" /> Cadeado aberto — chave encontrada!
               </div>
               <div className="rounded-xl bg-amber-500/10 border border-amber-700/30 p-4 mb-6">
                 <div className="flex items-center gap-2 text-xs text-amber-400/70 mb-2">
@@ -391,9 +377,9 @@ export default function EscapeRoom() {
               </div>
               <button
                 onClick={proximo}
-                className="w-full rounded-full bg-amber-500 px-6 py-3 text-stone-950 font-medium hover:bg-amber-400"
+                className="escape-btn escape-btn--primary w-full px-6 py-3 font-semibold"
               >
-                {resolvidos + 1 >= total ? "Escapar!" : "Próximo cadeado"}
+                <KeyRound className="w-4 h-4" /> {resolvidos + 1 >= total ? "Usar a chave e escapar" : "Ir ao próximo cadeado"}
               </button>
             </div>
           )}
