@@ -2,10 +2,11 @@ import assert from "node:assert/strict";
 import { cursos, roomsPorCurso, getRoom } from "../src/data/escapeRooms.js";
 import { urlDoTutor } from "../src/lib/tutors.js";
 import { prepararPuzzles } from "../src/lib/game.js";
+import { montarOperacao, temasPorCurso, puzzlesPorTema } from "../src/data/protocoloEferente.js";
 
 assert.equal(cursos.length, 2);
-assert.equal(roomsPorCurso("ef").length, 6);
-assert.equal(roomsPorCurso("fisio").length, 5);
+assert.equal(roomsPorCurso("ef").length, 7);
+assert.equal(roomsPorCurso("fisio").length, 6);
 
 const ef = getRoom("cardiovascular", "ef");
 const fisio = getRoom("cardiovascular", "fisio");
@@ -23,6 +24,7 @@ assert.equal(ef.tempoSegundos, ef.puzzles.length * 60);
 for (const curso of cursos) {
   for (const sala of roomsPorCurso(curso.id)) {
     assert.match(sala.imagem, /\.webp$/);
+    if (sala.operacao) continue;
     assert.equal(sala.tempoSegundos, sala.puzzles.length * 60);
   }
 }
@@ -41,4 +43,17 @@ assert.match(urlDoTutor("ef", "celular", "moodle"), /tutor-moodle\.html$/);
 assert.match(urlDoTutor("fisio", "respiratorio", "moodle"), /tutor-moodle\.html\?percurso=fisioterapia$/);
 assert.match(urlDoTutor("ef", "osteoarticular", "site"), /tutor-ef\.html\?eixo=osteoarticular$/);
 
-console.log("Catálogo validado: 6 unidades de Educação Física e 5 de Fisioterapia.");
+assert.equal(temasPorCurso.ef.length, 6);
+assert.equal(temasPorCurso.fisio.length, 5);
+const curta = montarOperacao("ef", ["celular"]);
+assert.equal(curta.puzzles.length, 2);
+const cheia = montarOperacao("ef", ["celular", "muscular"]);
+assert.equal(cheia.puzzles.length, 4);
+assert.equal(cheia.tempoSegundos, 240);
+const fisioOp = montarOperacao("fisio", ["celular", "integracao"]);
+assert.notEqual(cheia.puzzles[0].pergunta, fisioOp.puzzles[0].pergunta);
+assert.ok(Object.values(puzzlesPorTema.ef).every((lista) => lista.every((p) => p.dica && p.explicacao)));
+assert.ok(Object.values(puzzlesPorTema.fisio).every((lista) => lista.every((p) => p.dica && p.explicacao)));
+assert.ok(getRoom("protocolo-eferente", "ef").operacao);
+
+console.log("Catálogo validado: 6+1 unidades de Educação Física e 5+1 de Fisioterapia.");
