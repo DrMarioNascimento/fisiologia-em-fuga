@@ -2,11 +2,14 @@ import assert from "node:assert/strict";
 import { cursos, roomsPorCurso, getRoom } from "../src/data/escapeRooms.js";
 import { urlDoTutor } from "../src/lib/tutors.js";
 import { prepararPuzzles } from "../src/lib/game.js";
-import { montarOperacao, temasPorCurso, puzzlesPorTema } from "../src/data/protocoloEferente.js";
+import { montarOperacao, temasPorCurso, puzzlesPorTema, salaProtocolo } from "../src/data/protocoloEferente.js";
 
 assert.equal(cursos.length, 2);
-assert.equal(roomsPorCurso("ef").length, 7);
-assert.equal(roomsPorCurso("fisio").length, 6);
+assert.equal(roomsPorCurso("ef").length, 6);
+assert.equal(roomsPorCurso("fisio").length, 5);
+assert.equal(salaProtocolo.id, "protocolo-eferente");
+assert.ok(salaProtocolo.operacao);
+assert.deepEqual(salaProtocolo.cursos, ["ef", "fisio"]);
 
 const ef = getRoom("cardiovascular", "ef");
 const fisio = getRoom("cardiovascular", "fisio");
@@ -24,7 +27,6 @@ assert.equal(ef.tempoSegundos, ef.puzzles.length * 60);
 for (const curso of cursos) {
   for (const sala of roomsPorCurso(curso.id)) {
     assert.match(sala.imagem, /\.webp$/);
-    if (sala.operacao) continue;
     assert.equal(sala.tempoSegundos, sala.puzzles.length * 60);
   }
 }
@@ -54,6 +56,5 @@ const fisioOp = montarOperacao("fisio", ["celular", "integracao"]);
 assert.notEqual(cheia.puzzles[0].pergunta, fisioOp.puzzles[0].pergunta);
 assert.ok(Object.values(puzzlesPorTema.ef).every((lista) => lista.every((p) => p.dica && p.explicacao)));
 assert.ok(Object.values(puzzlesPorTema.fisio).every((lista) => lista.every((p) => p.dica && p.explicacao)));
-assert.ok(getRoom("protocolo-eferente", "ef").operacao);
 
-console.log("Catálogo validado: 6+1 unidades de Educação Física e 5+1 de Fisioterapia.");
+console.log("Catálogo validado: salas por unidade + Operação Protocolo Eferente.");
