@@ -9,8 +9,9 @@ Escape rooms didáticos de Fisiologia Humana, organizados por unidade e por curs
 - Motor único de jogo.
 - Cenários e puzzles contextualizados por curso.
 - Sala-base vertical para celular, com ambientação específica por unidade.
-- Acesso direto a partir da unidade correspondente no Tutor.
-- Retorno ao Tutor do mesmo curso ao finalizar ou sair.
+- Acesso direto a partir da unidade correspondente nos quatro tutores (EF site, EF Moodle, Fisio site, Fisio Moodle).
+- As salas do site voltam para o tutor do mesmo curso e da mesma unidade (`?eixo=`).
+- As salas abertas pelo Moodle voltam para o tutor Moodle do mesmo curso (`?origem=moodle`).
 
 ## Regras da experiência
 

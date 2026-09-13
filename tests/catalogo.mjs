@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { cursos, roomsPorCurso, getRoom } from "../src/data/escapeRooms.js";
+import { cursos, roomsPorCurso, getRoom, urlDoTutor } from "../src/data/escapeRooms.js";
 import { prepararPuzzles } from "../src/lib/game.js";
 
 assert.equal(cursos.length, 2);
@@ -35,5 +35,11 @@ assert.equal(multipla.opcoes.filter((opcao) => opcao.correta).length, 1);
 assert.equal(new Set(ordem.itens.map((item) => item.id)).size, ordem.itens.length);
 assert.equal(ordem.corretaIds.length, ordem.itens.length);
 assert.deepEqual(new Set(verdadeiro.opcoesVF.map((opcao) => opcao.v)), new Set([true, false]));
+
+assert.match(ef.tutorUrl, /tutor-ef\.html\?eixo=cardiovascular$/);
+assert.match(fisio.tutorUrl, /tutor-fisio\.html\?eixo=cardiovascular$/);
+assert.match(urlDoTutor("ef", "celular", "moodle"), /tutor-moodle\.html$/);
+assert.match(urlDoTutor("fisio", "respiratorio", "moodle"), /tutor-moodle\.html\?percurso=fisioterapia$/);
+assert.match(urlDoTutor("ef", "osteoarticular", "site"), /tutor-ef\.html\?eixo=osteoarticular$/);
 
 console.log("Catálogo validado: 6 unidades de Educação Física e 5 de Fisioterapia.");
