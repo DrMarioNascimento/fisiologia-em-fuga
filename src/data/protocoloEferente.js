@@ -17,6 +17,17 @@ export const temasPorCurso = {
   ]
 };
 
+export const salaProtocolo = {
+  id: "protocolo-eferente",
+  imagem: "integracao.webp",
+  cursos: ["ef", "fisio"],
+  operacao: true,
+  eixo: "Revisão livre pelos simuladores do curso",
+  titulo: "Operação Protocolo Eferente",
+  cenario: "Um acidente no laboratório de fisiologia reduziu você a um tamanho minúsculo. Você será introduzido pela via aferente e só reverte o acidente se escapar pela via eferente — pronto para a avaliação.",
+  puzzles: []
+};
+
 const ef = {
   celular: [
     { tipo: "multipla", pergunta: "Você encolheu e está na face interna da membrana. Na despolarização rápida, o fluxo dominante é:", opcoes: ["K⁺ saindo", "Na⁺ entrando", "Ca²⁺ saindo", "Cl⁻ saindo"], correta: 1, dica: "O canal do limiar deixa entrar o íon concentrado no meio extra.", explicacao: "A despolarização rápida é a entrada de Na⁺." },
