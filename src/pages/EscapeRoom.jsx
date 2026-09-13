@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, Lock, Unlock, Clock, Trophy, RotateCcw, Lightbulb, KeyRound } from "lucide-react";
 import { getRoom } from "@/data/escapeRooms";
+import { origemDaRota, urlDoTutor } from "@/lib/tutors";
 import { prepararPuzzles } from "@/lib/game";
 
 function PuzzleOrdem({ puzzle, onResolver, onTentativa }) {
@@ -151,6 +152,8 @@ function pergunta(p) {
 export default function EscapeRoom() {
   const { roomId, cursoId } = useParams();
   const room = getRoom(roomId, cursoId);
+  const origem = origemDaRota().get("origem");
+  const tutorHref = room ? urlDoTutor(room.cursoId, room.id, origem) : "";
   const [puzzlesPartida, setPuzzlesPartida] = useState(() => prepararPuzzles(room?.puzzles ?? []));
   const [resolvidos, setResolvidos] = useState(0);
   const [atual, setAtual] = useState(0);
@@ -229,7 +232,7 @@ export default function EscapeRoom() {
     return (
       <div className="escape-app escape-scene escape-scene--intro text-stone-100" style={{ "--room-image": `url("${imagemSala}")` }}>
         <div className="relative z-10 max-w-2xl mx-auto px-5 py-6 min-h-[100svh] flex flex-col">
-          <a href={room.tutorUrl} className="inline-flex items-center gap-2 text-sm text-stone-300 hover:text-white mb-8">
+          <a href={tutorHref} className="inline-flex items-center gap-2 text-sm text-stone-300 hover:text-white mb-8">
             <ArrowLeft className="w-4 h-4" /> Voltar ao Tutor
           </a>
           <div className="room-glass mt-auto rounded-3xl border border-amber-500/40 p-6 sm:p-8">
@@ -284,7 +287,7 @@ export default function EscapeRoom() {
               <RotateCcw className="w-4 h-4" /> Jogar de novo
             </button>
             <a
-              href={room.tutorUrl}
+              href={tutorHref}
               className="escape-btn escape-btn--secondary flex-1 px-6 py-3 font-semibold"
             >
               Voltar ao Tutor
@@ -308,7 +311,7 @@ export default function EscapeRoom() {
             <div className="rounded-xl border border-stone-800 p-4">{dicasUsadas}<small className="block text-stone-500">pistas</small></div>
           </div>
           <button onClick={reiniciar} className="escape-btn escape-btn--primary w-full px-6 py-3 font-semibold"><KeyRound className="w-4 h-4" /> Tentar novamente</button>
-          <a href={room.tutorUrl} className="mt-3 inline-flex text-sm text-stone-400">Voltar ao Tutor</a>
+          <a href={tutorHref} className="mt-3 inline-flex text-sm text-stone-400">Voltar ao Tutor</a>
         </div>
       </div>
     );
@@ -318,7 +321,7 @@ export default function EscapeRoom() {
     <div className="escape-app escape-scene escape-scene--play text-stone-100" style={{ "--room-image": `url("${imagemSala}")` }}>
       <div className="relative z-10 max-w-2xl mx-auto px-5 py-6 sm:py-10 min-h-[100svh]">
         <div className="flex items-center justify-between mb-6">
-          <a href={room.tutorUrl} className="inline-flex items-center gap-2 text-sm text-stone-400 hover:text-stone-200">
+          <a href={tutorHref} className="inline-flex items-center gap-2 text-sm text-stone-400 hover:text-stone-200">
             <ArrowLeft className="w-4 h-4" /> Tutor
           </a>
           <div className="flex items-center gap-3 text-xs">
