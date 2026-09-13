@@ -2,6 +2,21 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Lock, KeyRound, Clock, BookOpen } from "lucide-react";
 import { cursos, roomsPorCurso } from "@/data/escapeRooms";
+import { salaProtocolo } from "@/data/protocoloEferente";
+
+function salasDoCurso(cursoId) {
+  const curso = cursos.find((item) => item.id === cursoId);
+  const extra = {
+    ...salaProtocolo,
+    cursoId,
+    cursoNome: curso?.nome,
+    percursoId: `${cursoId}-protocolo-eferente`,
+    tempoPorQuestao: 60,
+    tempoSegundos: 0,
+    puzzles: [],
+  };
+  return [...roomsPorCurso(cursoId), extra];
+}
 
 export default function EscapeHub() {
   const [curso, setCurso] = useState(null);
@@ -21,8 +36,7 @@ export default function EscapeHub() {
         </div>
         <h1 className="font-display text-4xl font-light mb-3">Fisiologia em Fuga</h1>
         <p className="text-stone-400 text-sm mb-10 max-w-md">
-          Uma sala por unidade do repositório Fisiologia Interativa. Resolva os
-          puzzles de cada eixo para escapar antes do tempo — separado por curso.
+          Uma sala por unidade e a Operação Protocolo Eferente, com assuntos à escolha, para se preparar para a avaliação.
         </p>
 
         {!curso ? (
@@ -63,7 +77,7 @@ export default function EscapeHub() {
             </div>
 
             <div className="space-y-3">
-              {roomsPorCurso(curso).map((r, i) => (
+              {salasDoCurso(curso).map((r, i) => (
                 <Link
                   key={`${curso}-${r.id}`}
                   to={`/escape/${curso}/${r.id}`}
