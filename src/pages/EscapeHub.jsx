@@ -82,15 +82,16 @@ export default function EscapeHub() {
                     </div>
                     <div className="flex-1">
                       <p className="text-xs text-stone-500 mb-1">
-                        Unidade {i + 1}
+                        {r.operacao ? "Operação especial" : `Unidade ${i + 1}`}
                       </p>
                       <div className="flex items-center gap-2">
                         <h3 className="font-display text-lg text-stone-100">{r.titulo}</h3>
                         {r.piloto && <span className="rounded-full bg-amber-500/15 px-2 py-0.5 text-[10px] uppercase tracking-wider text-amber-300">Piloto</span>}
+                        {r.operacao && <span className="rounded-full bg-fuchsia-500/15 px-2 py-0.5 text-[10px] uppercase tracking-wider text-fuchsia-300">Operação</span>}
                       </div>
                       <p className="text-xs text-stone-400 mt-1">{r.eixo}</p>
                       <p className="text-xs text-stone-500 mt-2 flex items-center gap-1">
-                        <Clock className="w-3 h-3" /> {r.puzzles.length} puzzles · {r.puzzles.length} min
+                        <Clock className="w-3 h-3" /> {r.operacao ? "Assuntos à escolha · 1 min por cadeado" : `${r.puzzles.length} puzzles · ${r.puzzles.length} min`}
                       </p>
                     </div>
                   </div>
