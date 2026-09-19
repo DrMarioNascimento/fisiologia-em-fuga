@@ -58,3 +58,7 @@ Material exclusivamente didático e educacional. Os modelos e situações não s
 
 **Autor e titular declarado:** Mário César Nascimento, PhD.  
 Copyright © 2026. Todos os direitos reservados.
+
+## Licença e uso
+
+O projeto é material educacional de uso restrito. O acesso funcional para estudo, aulas e demonstrações não autoriza copiar, adaptar, redistribuir, republicar ou explorar comercialmente o código, os cenários, os textos ou os elementos visuais. Consulte [LICENSE.md](LICENSE.md).
