@@ -1,6 +1,8 @@
 # Fisiologia em Fuga
 
-Escape rooms didáticos de Fisiologia Humana, organizados por unidade e por curso, para integração com os Tutores da [Fisiologia Interativa](https://drmarionascimento.github.io/fisiologia-interativa/).
+Escape rooms didáticos de Fisiologia Humana, organizados por unidade e por curso, integrados aos tutores da [Fisiologia Interativa](https://drmarionascimento.github.io/fisiologia-interativa/).
+
+**Jogar:** [drmarionascimento.github.io/fisiologia-em-fuga](https://drmarionascimento.github.io/fisiologia-em-fuga/)
 
 ## Organização
 
@@ -30,7 +32,14 @@ As duas experiências cardiovasculares constituem o primeiro lote piloto:
 - `#/escape/ef/cardiovascular`
 - `#/escape/fisio/cardiovascular`
 
+## Projetos relacionados
+
+- [Fisiologia Interativa](https://github.com/DrMarioNascimento/fisiologia-interativa) — simuladores e tutores que abrem estas salas.
+- [Atividades Extras](https://github.com/DrMarioNascimento/Atividades-Extras) — missões complementares de Fisiologia.
+
 ## Desenvolvimento
+
+Stack: React, Vite, Tailwind CSS e React Router.
 
 ```bash
 npm install
@@ -48,9 +57,7 @@ npm run build
 
 O workflow em `.github/workflows/pages.yml` compila e publica o projeto no GitHub Pages a cada alteração na branch `main`.
 
-Endereço esperado:
-
-<https://drmarionascimento.github.io/fisiologia-em-fuga/>
+Endereço: <https://drmarionascimento.github.io/fisiologia-em-fuga/>
 
 ## Finalidade
 
@@ -61,4 +68,4 @@ Copyright © 2026. Todos os direitos reservados.
 
 ## Licença e uso
 
-O projeto é material educacional de uso restrito. O acesso funcional para estudo, aulas e demonstrações não autoriza copiar, adaptar, redistribuir, republicar ou explorar comercialmente o código, os cenários, os textos ou os elementos visuais. Consulte [LICENSE.md](LICENSE.md).
+O projeto é material educacional de uso restrito. O repositório público não é código aberto. O acesso funcional para estudo, aulas e demonstrações não autoriza copiar, adaptar, redistribuir, republicar ou explorar comercialmente o código, os cenários, os textos ou os elementos visuais. Consulte [LICENSE.md](LICENSE.md).
