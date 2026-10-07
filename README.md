@@ -1,5 +1,7 @@
 # Fisiologia em Fuga
 
+**Estado em 7 de outubro de 2026.** Lote piloto no ar: as duas salas cardiovasculares. As outras unidades estão previstas (EF 6, Fisio 5) e ainda não são o produto jogável completo. Licença de uso educacional restrito.
+
 Escape rooms didáticos de Fisiologia Humana, organizados por unidade e por curso, integrados aos tutores da [Fisiologia Interativa](https://drmarionascimento.github.io/fisiologia-interativa/).
 
 **Jogar:** [drmarionascimento.github.io/fisiologia-em-fuga](https://drmarionascimento.github.io/fisiologia-em-fuga/)
@@ -36,6 +38,7 @@ As duas experiências cardiovasculares constituem o primeiro lote piloto:
 
 - [Fisiologia Interativa](https://github.com/DrMarioNascimento/fisiologia-interativa) — simuladores e tutores que abrem estas salas.
 - [Atividades Extras](https://github.com/DrMarioNascimento/Atividades-Extras) — missões complementares de Fisiologia.
+- [Eita!](https://eita-quiz.web.app/) — quiz-batalha de sala, repositório privado.
 
 ## Desenvolvimento
 
@@ -68,4 +71,4 @@ Copyright © 2026. Todos os direitos reservados.
 
 ## Licença e uso
 
-O projeto é material educacional de uso restrito. O repositório público não é código aberto. O acesso funcional para estudo, aulas e demonstrações não autoriza copiar, adaptar, redistribuir, republicar ou explorar comercialmente o código, os cenários, os textos ou os elementos visuais. Consulte [LICENSE.md](LICENSE.md).
+O projeto é material educacional de uso restrito. O repositório público não é código aberto. O acesso funcional para estudo, aulas e demonstrações não autoriza copiar, adaptar, redistribuir, republicar ou explorar comercialmente o código, os cenários, os textos ou os elementos visuais. Consulte [LICENSE.md](LICENSE.md). Revisão documental desta nota: 7 de outubro de 2026.
