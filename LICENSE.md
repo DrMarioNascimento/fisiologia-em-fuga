@@ -69,3 +69,10 @@ responsabiliza por decisões tomadas exclusivamente com base nos simuladores.
 Todos os direitos não expressamente concedidos neste documento permanecem
 reservados ao titular.
 
+---
+
+## Nota editorial — 10 de outubro de 2026
+
+A documentação distingue o catálogo de unidades, os roteiros cardiovasculares piloto e a Operação Protocolo Eferente.
+
+Esta nota registra a revisão da documentação. Não altera as cláusulas anteriores, os titulares, as permissões, as restrições nem as licenças próprias de terceiros.

@@ -1,6 +1,13 @@
 # Fisiologia em Fuga
 
-**Estado em 7 de outubro de 2026.** Lote piloto no ar: as duas salas cardiovasculares. As outras unidades estão previstas (EF 6, Fisio 5) e ainda não são o produto jogável completo. Licença de uso educacional restrito.
+## Estado e manutenção — 10 de outubro de 2026
+
+O código contém seis unidades para Educação Física e cinco para Fisioterapia. As salas cardiovasculares têm roteiros piloto próprios por curso; as outras unidades usam os roteiros-base do catálogo. Portanto, a existência de uma rota não equivale a declarar concluída a validação pedagógica de todas as salas.
+
+A [Operação Protocolo Eferente](src/data/protocoloEferente.js) permite montar uma revisão pelos eixos do curso. O banco de salas fica em `src/data/escapeRooms.js`; o motor, em `src/lib/game.js`. Os testes existentes verificam o catálogo e a composição dos percursos. Antes de declarar um novo lote pronto, percorra início, puzzles, erros, tempo esgotado, conclusão e retorno ao tutor do mesmo curso.
+
+
+**Revisão em 10 de outubro de 2026.** O catálogo contém seis unidades de EF e cinco de Fisioterapia, com roteiros-base e duas versões cardiovasculares piloto específicas por curso. A validação completa de todos os percursos deve ser registrada separadamente. Licença de uso educacional restrito.
 
 Escape rooms didáticos de Fisiologia Humana, organizados por unidade e por curso, integrados aos tutores da [Fisiologia Interativa](https://drmarionascimento.github.io/fisiologia-interativa/).
 
