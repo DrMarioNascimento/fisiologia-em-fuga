@@ -18,7 +18,7 @@ A [Operação Protocolo Eferente](src/data/protocoloEferente.js) permite montar 
 
 Escape rooms didáticos de Fisiologia Humana, organizados por unidade e por curso, integrados aos tutores da [Fisiologia Interativa](https://fisiologia.drmarionascimento.com.br/).
 
-**Jogar:** [drmarionascimento.github.io/fisiologia-em-fuga](https://drmarionascimento.github.io/fisiologia-em-fuga/)
+**Jogar:** [fisiologia-em-fuga.drmarionascimento.com.br](https://fisiologia-em-fuga.drmarionascimento.com.br/)
 
 ## Organização
 
@@ -74,7 +74,7 @@ npm run build
 
 O workflow em `.github/workflows/pages.yml` compila e publica o projeto no GitHub Pages a cada alteração na branch `main`.
 
-Endereço: <https://drmarionascimento.github.io/fisiologia-em-fuga/>
+Endereço: <https://fisiologia-em-fuga.drmarionascimento.com.br/>
 
 ## Finalidade
 

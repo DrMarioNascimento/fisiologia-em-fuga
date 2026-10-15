@@ -367,11 +367,11 @@ export const rooms = [
 const tutores = {
   ef: {
     nome: "Educação Física",
-    url: "https://drmarionascimento.github.io/fisiologia-interativa/tutor-ef.html",
+    url: "https://fisiologia.drmarionascimento.com.br/tutor-ef.html",
   },
   fisio: {
     nome: "Fisioterapia",
-    url: "https://drmarionascimento.github.io/fisiologia-interativa/tutor-fisio.html",
+    url: "https://fisiologia.drmarionascimento.com.br/tutor-fisio.html",
   },
 };
 

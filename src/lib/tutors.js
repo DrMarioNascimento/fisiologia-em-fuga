@@ -1,4 +1,4 @@
-const TUTOR_BASE = "https://drmarionascimento.github.io/fisiologia-interativa";
+const TUTOR_BASE = "https://fisiologia.drmarionascimento.com.br";
 
 export function origemDaRota(search = "") {
   const hash = typeof window !== "undefined" ? window.location.hash : "";
