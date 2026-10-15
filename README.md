@@ -1,5 +1,12 @@
 # Fisiologia em Fuga
 
+## Recursos educacionais
+
+Este projeto integra os recursos educacionais do Prof. Mário César Nascimento, PhD. O acesso aos materiais disponibilizados permanece aberto ao público, conforme [LICENSE.md](LICENSE.md). Recursos de Fisiologia têm finalidade educacional e não substituem diagnóstico, prescrição nem orientação clínica individual.
+
+Portal do autor: https://www.drmarionascimento.com.br/
+
+
 ## Estado e manutenção — 10 de outubro de 2026
 
 O código contém seis unidades para Educação Física e cinco para Fisioterapia. As salas cardiovasculares têm roteiros piloto próprios por curso; as outras unidades usam os roteiros-base do catálogo. Portanto, a existência de uma rota não equivale a declarar concluída a validação pedagógica de todas as salas.
