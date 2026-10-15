@@ -52,7 +52,7 @@ As duas experiências cardiovasculares constituem o primeiro lote piloto:
 
 - [Fisiologia Interativa](https://github.com/DrMarioNascimento/fisiologia-interativa) — simuladores e tutores que abrem estas salas.
 - [Atividades Extras](https://github.com/DrMarioNascimento/Atividades-Extras) — missões complementares de Fisiologia.
-- [Eita!](https://eita-quiz.web.app/) — quiz-batalha de sala, repositório privado.
+- [Eita!](https://eita.dragongames.dev.br/) — quiz-batalha de sala, repositório privado.
 
 ## Desenvolvimento
 
