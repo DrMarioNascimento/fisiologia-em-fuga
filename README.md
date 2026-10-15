@@ -16,7 +16,7 @@ A [Operação Protocolo Eferente](src/data/protocoloEferente.js) permite montar 
 
 **Revisão em 10 de outubro de 2026.** O catálogo contém seis unidades de EF e cinco de Fisioterapia, com roteiros-base e duas versões cardiovasculares piloto específicas por curso. A validação completa de todos os percursos deve ser registrada separadamente. Licença de uso educacional restrito.
 
-Escape rooms didáticos de Fisiologia Humana, organizados por unidade e por curso, integrados aos tutores da [Fisiologia Interativa](https://drmarionascimento.github.io/fisiologia-interativa/).
+Escape rooms didáticos de Fisiologia Humana, organizados por unidade e por curso, integrados aos tutores da [Fisiologia Interativa](https://fisiologia.drmarionascimento.com.br/).
 
 **Jogar:** [drmarionascimento.github.io/fisiologia-em-fuga](https://drmarionascimento.github.io/fisiologia-em-fuga/)
 
