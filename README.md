@@ -1,5 +1,9 @@
 # Fisiologia em Fuga
 
+## Situação atual — 19 de outubro de 2026
+
+O catálogo deste projeto permanece com seis eixos de EF e cinco de Fisioterapia. A nova Unidade 06 — Sistema Endócrino da Fisiologia Interativa ainda não possui sala neste repositório. Integração cardiorrespiratória continua sendo um eixo próprio do Escape Room, mesmo aparecendo como integração das Unidades 4 e 5 no portal EF. Não renumere as rotas existentes para acompanhar os números dos cards.
+
 ## Recursos educacionais
 
 Este projeto integra os recursos educacionais do Prof. Mário César Nascimento, PhD. O acesso aos materiais disponibilizados permanece aberto ao público, conforme [LICENSE.md](LICENSE.md). Recursos de Fisiologia têm finalidade educacional e não substituem diagnóstico, prescrição nem orientação clínica individual.
@@ -7,7 +11,7 @@ Este projeto integra os recursos educacionais do Prof. Mário César Nascimento,
 Portal do autor: https://www.drmarionascimento.com.br/
 
 
-## Estado e manutenção — 10 de outubro de 2026
+## Registro anterior de manutenção — 10 de outubro de 2026
 
 O código contém seis unidades para Educação Física e cinco para Fisioterapia. As salas cardiovasculares têm roteiros piloto próprios por curso; as outras unidades usam os roteiros-base do catálogo. Portanto, a existência de uma rota não equivale a declarar concluída a validação pedagógica de todas as salas.
 
@@ -52,7 +56,7 @@ As duas experiências cardiovasculares constituem o primeiro lote piloto:
 
 - [Fisiologia Interativa](https://github.com/DrMarioNascimento/fisiologia-interativa) — simuladores e tutores que abrem estas salas.
 - [Atividades Extras](https://github.com/DrMarioNascimento/Atividades-Extras) — missões complementares de Fisiologia.
-- [Eita!](https://eita.dragongames.dev.br/) — quiz-batalha de sala, repositório privado.
+- [Eita!](https://eita.dragongames.dev.br/) — quiz-batalha de sala, em testes internos.
 
 ## Desenvolvimento
 
