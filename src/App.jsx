@@ -4,6 +4,8 @@ import EscapeHub from "@/pages/EscapeHub";
 import EscapeRoom from "@/pages/EscapeRoom";
 import OperacaoProtocolo from "@/pages/OperacaoProtocolo";
 
+import { AuthProvider, RequireAuth, SessionBar } from "@/components/Auth";
+
 function EscapeRoomRoute() {
   const { cursoId = "", roomId = "" } = useParams();
   return <EscapeRoom key={`${cursoId}/${roomId}`} />;
@@ -12,14 +14,18 @@ function EscapeRoomRoute() {
 export default function App() {
   return (
     <HashRouter>
+      <AuthProvider>
       <div className="min-h-[100svh] flex flex-col">
+        <SessionBar />
         <div className="flex-1">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route element={<RequireAuth />}>
             <Route path="/escape" element={<EscapeHub />} />
             <Route path="/escape/:cursoId/protocolo-eferente" element={<OperacaoProtocolo />} />
             <Route path="/escape/:cursoId/:roomId" element={<EscapeRoomRoute />} />
             <Route path="/escape/:roomId" element={<EscapeRoomRoute />} />
+            </Route>
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
@@ -27,6 +33,7 @@ export default function App() {
           Simuladores interativos utilizados nas disciplinas de Fisiologia Humana do Prof. Dr. Mário César Nascimento ©
         </footer>
       </div>
+    </AuthProvider>
     </HashRouter>
   );
 }

@@ -1,115 +1,32 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { KeyRound, BookOpen, Clock, Lock, GitBranch, ArrowUpRight } from "lucide-react";
-import { cursos, roomsPorCurso } from "@/data/escapeRooms";
-
+import React, { useEffect } from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
+import { KeyRound } from 'lucide-react';
+import { useAuth } from '@/components/Auth';
 export default function Home() {
-  const percursos = cursos.flatMap((curso) => roomsPorCurso(curso.id));
-  const totalSalas = percursos.length;
-  const totalPuzzles = percursos.reduce((s, room) => s + room.puzzles.length, 0);
-
-  return (
-    <div className="escape-app min-h-screen bg-[#0d2b34] text-stone-100">
-      <header className="relative overflow-hidden">
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute -top-24 -left-24 h-96 w-96 rounded-full bg-emerald-500/25 blur-3xl" />
-          <div className="absolute top-40 -right-24 h-96 w-96 rounded-full bg-teal-300/20 blur-3xl" />
+  const { user, loading, busy, error, login } = useAuth();
+  const location = useLocation();
+  const goToPercursos = new URLSearchParams(location.search).get('next') === 'percursos';
+  useEffect(() => {
+    if (user && !loading && goToPercursos) window.location.replace(`${import.meta.env.BASE_URL}percursos/`);
+  }, [user, loading, goToPercursos]);
+  if (user && !loading && !goToPercursos) return <Navigate to="/escape" replace />;
+  return <div className="escape-app min-h-[90svh] bg-[#0d2b34] text-stone-100 flex flex-col justify-center">
+    <main className="relative overflow-hidden px-6 py-16">
+      <div aria-hidden="true" className="absolute -top-24 -left-24 h-96 w-96 rounded-full bg-emerald-500/10 blur-3xl" />
+      <div className="relative max-w-xl mx-auto text-center">
+        <div className="inline-flex items-center gap-2 text-amber-300 text-xs tracking-[0.3em] uppercase mb-6"><KeyRound className="w-4 h-4" /> Fisiologia Interativa</div>
+        <h1 className="font-display text-5xl sm:text-6xl font-light tracking-tight leading-[1.05]">Fisiologia<span className="block text-stone-400 text-2xl sm:text-3xl mt-3 italic">em Fuga</span></h1>
+        <p className="mt-8 text-stone-300 text-lg leading-relaxed">Investigue histórias, conecte os sistemas do organismo e resolva os desafios de fisiologia.</p>
+        <div className="escape-panel-card p-7 mt-10">
+          <h2 className="font-display text-2xl">Entre para escolher sua atividade</h2>
+          <p className="text-sm text-stone-300 mt-3 mb-6">Use sua conta Google para acessar os percursos e as salas.</p>
+          <button type="button" onClick={login} disabled={loading || busy || Boolean(user)} className="escape-btn escape-btn--primary px-7 py-4 font-semibold disabled:opacity-60">
+            <KeyRound className="w-4 h-4" aria-hidden="true" /> {loading ? 'Verificando entrada…' : busy ? 'Aguardando o Google…' : user ? 'Abrindo atividade…' : 'Entrar com Google'}
+          </button>
+          {error && <p role="alert" className="text-sm text-amber-200 leading-relaxed mt-5">{error}</p>}
+          <p className="text-xs text-stone-400 leading-relaxed mt-5">A entrada utiliza seu nome e e-mail da conta Google. O progresso das atividades fica neste navegador; as notas não são enviadas.</p>
         </div>
-        <div className="relative max-w-3xl mx-auto px-6 pt-20 pb-16 text-center">
-          <div className="inline-flex items-center gap-2 text-amber-300 text-xs tracking-[0.3em] uppercase mb-6">
-            <KeyRound className="w-4 h-4" /> Fisiologia Interativa
-          </div>
-          <h1 className="font-display text-5xl sm:text-6xl font-light tracking-tight leading-[1.05]">
-            Fisiologia
-            <span className="block text-stone-400 text-2xl sm:text-3xl mt-3 font-light italic">
-              em Fuga
-            </span>
-          </h1>
-          <p className="mt-8 text-stone-300/80 text-lg leading-relaxed font-light max-w-xl mx-auto">
-            Um escape room para cada unidade de Educação Física e Fisioterapia.
-            Entre diretamente pelo Tutor do seu curso e resolva os cadeados antes
-            do tempo.
-          </p>
-          <div className="mt-10">
-            <Link
-              to="/escape"
-              className="escape-btn escape-btn--primary px-8 py-4 font-semibold tracking-wide"
-            >
-              <KeyRound className="w-4 h-4" /> Entrar
-            </Link>
-          </div>
-        </div>
-      </header>
-
-      <section className="max-w-3xl mx-auto px-6 pb-16">
-        <a
-          href={`${import.meta.env.BASE_URL}percursos/`}
-          className="escape-panel-card block p-6 mb-10 text-left"
-        >
-          <div className="flex items-start gap-4">
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-emerald-400/15 text-emerald-300">
-              <GitBranch className="h-6 w-6" aria-hidden="true" />
-            </span>
-            <div className="flex-1">
-              <span className="text-[10px] uppercase tracking-[0.2em] text-emerald-300">Nova atividade · piloto</span>
-              <h2 className="font-display text-2xl mt-1 mb-2">Percursos de Fisiologia</h2>
-              <p className="text-sm text-stone-300 leading-relaxed">Escolha entre 12 unidades, entre em uma das nove histórias e construa seu diagrama de raciocínio. O caso fornece os conteúdos que você não selecionar.</p>
-              <span className="mt-4 inline-flex items-center gap-2 text-sm text-emerald-300">Explorar os percursos <ArrowUpRight className="h-4 w-4" aria-hidden="true" /></span>
-            </div>
-          </div>
-        </a>
-        <div className="grid grid-cols-3 gap-4 mb-10">
-          <div className="text-center">
-            <p className="font-display text-3xl text-emerald-300">{totalSalas}</p>
-            <p className="text-xs text-stone-500 mt-1">salas</p>
-          </div>
-          <div className="text-center">
-            <p className="font-display text-3xl text-emerald-300">{cursos.length}</p>
-            <p className="text-xs text-stone-500 mt-1">cursos</p>
-          </div>
-          <div className="text-center">
-            <p className="font-display text-3xl text-emerald-300">{totalPuzzles}</p>
-            <p className="text-xs text-stone-500 mt-1">puzzles</p>
-          </div>
-        </div>
-
-        <div className="grid sm:grid-cols-2 gap-4">
-          {cursos.map((c) => {
-            const count = roomsPorCurso(c.id).length;
-            return (
-              <Link
-                key={c.id}
-                to="/escape"
-                className="escape-panel-card p-6"
-              >
-                <div
-                  className="w-10 h-10 rounded-xl mb-4 flex items-center justify-center"
-                  style={{ background: c.cor + "22", color: c.cor }}
-                >
-                  <BookOpen className="w-5 h-5" />
-                </div>
-                <h3 className="font-display text-xl mb-1">{c.nome}</h3>
-                <p className="text-sm text-stone-400 leading-relaxed mb-3">{c.desc}</p>
-                <div className="flex items-center gap-3 text-xs text-stone-500">
-                  <span className="inline-flex items-center gap-1">
-                    <Lock className="w-3 h-3" /> {count} salas
-                  </span>
-                  <span className="inline-flex items-center gap-1">
-                    <Clock className="w-3 h-3" /> cronometrado
-                  </span>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
-
-      <footer className="max-w-2xl mx-auto px-6 pb-12 text-center">
-        <p className="text-xs text-stone-500 leading-relaxed">
-          Baseado no repositório DrMarioNascimento/fisiologia-interativa ·
-          Prof. Mário César Nascimento, PhD · finalidade didática e educacional.
-        </p>
-      </footer>
-    </div>
-  );
+      </div>
+    </main>
+  </div>;
 }

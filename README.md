@@ -8,7 +8,7 @@ Quiz modular com 12 unidades e nove temas livres para todos os estudantes. Unida
 
 - [Funcionamento e escopo](docs/percursos-fisiologia.md).
 - [Guia de ícones e ilustrações das histórias](docs/icones-percursos-fisiologia.md).
-- Fonte: `public/percursos/`; testes: `tests/percursos.cjs` (incluídos em `npm test`).
+- Fonte: `percursos/index.html` e `public/percursos/`; testes: `tests/percursos.cjs` (incluídos em `npm test`).
 - Acesso pela página inicial e pelo catálogo de salas; os temas não são separados por curso.
 
 ## Situação do catálogo de Escape Rooms — 19 de outubro de 2026
@@ -101,3 +101,15 @@ Copyright © 2026. Todos os direitos reservados.
 ## Licença e uso
 
 O projeto é material educacional de uso restrito. O repositório público não é código aberto. O acesso funcional para estudo, aulas e demonstrações não autoriza copiar, adaptar, redistribuir, republicar ou explorar comercialmente o código, os cenários, os textos ou os elementos visuais. Consulte [LICENSE.md](LICENSE.md). Revisão documental desta nota: 7 de outubro de 2026.
+
+## Entrada com Google
+
+O menu tem três cards, exibidos uma única vez depois do login: Percursos de Fisiologia, Educação Física e Fisioterapia. Todas as rotas de salas e a entrada direta em `/percursos/` aguardam a sessão Google. O botão **Sair** encerra a sessão. Links diretos para salas conservam o destino e os parâmetros do tutor durante a entrada.
+
+Firebase Authentication: projeto `atividades-extras-e40b6`, já compartilhado com Atividades Extras. O domínio `fisiologia-em-fuga.drmarionascimento.com.br` foi autorizado no console. Não foram alterados os provedores existentes, regras do Firestore, salas ou permissões docentes. Qualquer conta Google pode entrar nas atividades; uma sessão anônima não libera o menu.
+
+O SDK usa apenas Authentication, sem Analytics ou envio de notas. Nome e e-mail identificam a sessão; os progressos permanecem locais. A configuração web é pública e não é uma credencial administrativa. A entrada controla a navegação da interface; como o site e o repositório são públicos, ela não torna os arquivos ou o banco de questões confidenciais. Dados privados futuros exigem autorização no servidor e regras específicas.
+
+Hospedagem: GitHub Pages em `https://fisiologia-em-fuga.drmarionascimento.com.br/`. O certificado TLS e **Enforce HTTPS** são gerenciados nas configurações Pages do repositório, não na lista de domínios autorizados do Firebase. Não foi feita migração para Firebase Hosting.
+
+Validação: `npm test` inclui os cenários de sessão ausente, carregamento, três cards únicos, links diretos, saída e bloqueio do quiz durante carregamento. `npm run build` gera as duas entradas HTML com o mesmo SDK de autenticação.

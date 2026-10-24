@@ -24,22 +24,15 @@ export default function EscapeHub() {
   return (
     <div className="escape-app min-h-screen bg-[#0d2b34] text-stone-100">
       <div className="max-w-2xl mx-auto px-6 py-10">
-        <Link
-          to="/"
-          className="inline-flex items-center gap-2 text-sm text-stone-400 hover:text-stone-200 mb-8"
-        >
-          <ArrowLeft className="w-4 h-4" /> Voltar
-        </Link>
-
         <div className="inline-flex items-center gap-2 text-amber-300 text-xs tracking-[0.3em] uppercase mb-4">
-          <KeyRound className="w-4 h-4" /> Escape Room
+          <KeyRound className="w-4 h-4" /> Escolha sua atividade
         </div>
         <h1 className="font-display text-4xl font-light mb-3">Fisiologia em Fuga</h1>
         <p className="text-stone-400 text-sm mb-10 max-w-md">
           Uma sala por unidade e a Operação Protocolo Eferente, com assuntos à escolha, para se preparar para a avaliação.
         </p>
 
-        <a
+        {!curso && <a
           href={`${import.meta.env.BASE_URL}percursos/`}
           className="escape-panel-card mb-6 flex items-start gap-3 p-5"
         >
@@ -48,7 +41,7 @@ export default function EscapeHub() {
             <h2 className="font-display text-xl mb-1">Percursos de Fisiologia</h2>
             <p className="text-sm text-stone-400">12 unidades à escolha · nove histórias · diagrama de investigação · sem cronômetro.</p>
           </div>
-        </a>
+        </a>}
 
         {!curso ? (
           <div className="grid sm:grid-cols-2 gap-4">
