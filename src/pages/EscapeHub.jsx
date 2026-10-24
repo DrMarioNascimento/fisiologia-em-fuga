@@ -1,6 +1,7 @@
+import { Lock } from "@/components/LockArt";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Lock, KeyRound, Clock, BookOpen, GitBranch } from "lucide-react";
+import { ArrowLeft, KeyRound, Clock, BookOpen, GitBranch } from "lucide-react";
 import { cursos, roomsPorCurso } from "@/data/escapeRooms";
 import { salaProtocolo } from "@/data/protocoloEferente";
 

@@ -1,6 +1,7 @@
+import { Lock, Unlock } from "@/components/LockArt";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ArrowLeft, Clock, KeyRound, Lock, RotateCcw } from "lucide-react";
+import { ArrowLeft, Clock, KeyRound, RotateCcw } from "lucide-react";
 import { cursos } from "@/data/escapeRooms";
 import { montarOperacao, salaProtocolo, temasPorCurso } from "@/data/protocoloEferente";
 import { origemDaRota, urlDoTutor } from "@/lib/tutors";
@@ -166,7 +167,7 @@ export default function OperacaoProtocolo() {
                 </div>
               </section>
               <section className="protocolo-tile protocolo-tile--checks p-5">
-                <p className="text-lg mb-2">📦🔐</p>
+                <p className="text-lg mb-2">📦<Lock className="w-5 h-5" /></p>
                 <h2 className="font-display text-xl mb-3">Vias do protocolo</h2>
                 <p className="text-xs text-stone-300 mb-4">Marque pelo menos duas. Cada via abre 2 cadeados · 1 minuto cada.</p>
                 <div className="grid grid-cols-2 gap-2">
@@ -174,7 +175,7 @@ export default function OperacaoProtocolo() {
                     const on = temasEscolhidos.includes(tema.id);
                     return (
                       <button key={tema.id} type="button" onClick={() => toggleTema(tema.id)} className={`protocolo-check ${on ? "is-on" : ""}`} style={{ "--tema-cor": tema.cor }}>
-                        <span className="text-lg">{on ? "🔓" : "🔒"}</span>
+                        <span className="text-lg">{on ? <Unlock className="w-5 h-5" /> : <Lock className="w-5 h-5" />}</span>
                         <span className="text-lg">{tema.emoji}</span>
                         <span className="text-sm font-semibold">{tema.label}</span>
                       </button>
@@ -197,7 +198,7 @@ export default function OperacaoProtocolo() {
     return (
       <div className="escape-app escape-scene escape-scene--result text-stone-100" style={{ "--room-image": `url("${imagemSala}")` }}>
         <div className="relative z-10 max-w-2xl mx-auto px-6 py-10 min-h-[100svh] flex flex-col justify-center text-center">
-          <div className="protocolo-win-art mb-3">🏅🔓🧬</div>
+          <div className="protocolo-win-art mb-3">🏅<Unlock className="w-12 h-12" />🧬</div>
           <h1 className="font-display text-3xl font-light mb-2">Via eferente liberada!</h1>
           <p className="text-amber-200 font-semibold text-lg">Você está preparado para a avaliação!</p>
           <p className="text-stone-300 text-sm mt-2 mb-6">O acidente foi revertido. A chave eferente devolveu o tamanho e o raciocínio.</p>

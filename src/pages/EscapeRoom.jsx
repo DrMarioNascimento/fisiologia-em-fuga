@@ -1,6 +1,7 @@
+import { Lock, Unlock } from "@/components/LockArt";
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, Lock, Unlock, Clock, Trophy, RotateCcw, Lightbulb, KeyRound } from "lucide-react";
+import { ArrowLeft, Clock, Trophy, RotateCcw, Lightbulb, KeyRound } from "lucide-react";
 import { getRoom } from "@/data/escapeRooms";
 import { origemDaRota, urlDoTutor } from "@/lib/tutors";
 import { prepararPuzzles } from "@/lib/game";
