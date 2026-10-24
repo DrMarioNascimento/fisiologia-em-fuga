@@ -1,6 +1,17 @@
 # Fisiologia em Fuga
 
-## Situação atual — 19 de outubro de 2026
+## Percursos de Fisiologia — nova atividade piloto
+
+[**Abrir Percursos de Fisiologia**](https://fisiologia-em-fuga.drmarionascimento.com.br/percursos/)
+
+Quiz modular com 12 unidades e nove temas livres para todos os estudantes. Unidades escolhidas viram investigação; as demais entram como condições fornecidas pelo caso. Inclui ramificações de resposta, revisão de hipóteses, relações fisiológicas em diagramas, síntese, progresso local e exportação. O piloto contém um recorte por unidade e uma síntese final, sem pretensão de cobrir todos os tópicos do programa.
+
+- [Funcionamento e escopo](docs/percursos-fisiologia.md).
+- [Guia de ícones e ilustrações das histórias](docs/icones-percursos-fisiologia.md).
+- Fonte: `public/percursos/`; testes: `tests/percursos.cjs` (incluídos em `npm test`).
+- Acesso pela página inicial e pelo catálogo de salas; os temas não são separados por curso.
+
+## Situação do catálogo de Escape Rooms — 19 de outubro de 2026
 
 O catálogo deste projeto permanece com seis eixos de EF e cinco de Fisioterapia. A nova Unidade 06 — Sistema Endócrino da Fisiologia Interativa ainda não possui sala neste repositório. Integração cardiorrespiratória continua sendo um eixo próprio do Escape Room, mesmo aparecendo como integração das Unidades 4 e 5 no portal EF. Não renumere as rotas existentes para acompanhar os números dos cards.
 

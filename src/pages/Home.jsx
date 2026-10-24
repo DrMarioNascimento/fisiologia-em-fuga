@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { KeyRound, BookOpen, Clock, Lock } from "lucide-react";
+import { KeyRound, BookOpen, Clock, Lock, GitBranch, ArrowUpRight } from "lucide-react";
 import { cursos, roomsPorCurso } from "@/data/escapeRooms";
 
 export default function Home() {
@@ -42,6 +42,22 @@ export default function Home() {
       </header>
 
       <section className="max-w-3xl mx-auto px-6 pb-16">
+        <a
+          href={`${import.meta.env.BASE_URL}percursos/`}
+          className="escape-panel-card block p-6 mb-10 text-left"
+        >
+          <div className="flex items-start gap-4">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-emerald-400/15 text-emerald-300">
+              <GitBranch className="h-6 w-6" aria-hidden="true" />
+            </span>
+            <div className="flex-1">
+              <span className="text-[10px] uppercase tracking-[0.2em] text-emerald-300">Nova atividade · piloto</span>
+              <h2 className="font-display text-2xl mt-1 mb-2">Percursos de Fisiologia</h2>
+              <p className="text-sm text-stone-300 leading-relaxed">Escolha entre 12 unidades, entre em uma das nove histórias e construa seu diagrama de raciocínio. O caso fornece os conteúdos que você não selecionar.</p>
+              <span className="mt-4 inline-flex items-center gap-2 text-sm text-emerald-300">Explorar os percursos <ArrowUpRight className="h-4 w-4" aria-hidden="true" /></span>
+            </div>
+          </div>
+        </a>
         <div className="grid grid-cols-3 gap-4 mb-10">
           <div className="text-center">
             <p className="font-display text-3xl text-emerald-300">{totalSalas}</p>

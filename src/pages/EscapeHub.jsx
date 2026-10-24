@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Lock, KeyRound, Clock, BookOpen } from "lucide-react";
+import { ArrowLeft, Lock, KeyRound, Clock, BookOpen, GitBranch } from "lucide-react";
 import { cursos, roomsPorCurso } from "@/data/escapeRooms";
 import { salaProtocolo } from "@/data/protocoloEferente";
 
@@ -38,6 +38,17 @@ export default function EscapeHub() {
         <p className="text-stone-400 text-sm mb-10 max-w-md">
           Uma sala por unidade e a Operação Protocolo Eferente, com assuntos à escolha, para se preparar para a avaliação.
         </p>
+
+        <a
+          href={`${import.meta.env.BASE_URL}percursos/`}
+          className="escape-panel-card mb-6 flex items-start gap-3 p-5"
+        >
+          <GitBranch className="mt-1 h-5 w-5 shrink-0 text-emerald-300" aria-hidden="true" />
+          <div>
+            <h2 className="font-display text-xl mb-1">Percursos de Fisiologia</h2>
+            <p className="text-sm text-stone-400">12 unidades à escolha · nove histórias · diagrama de investigação · sem cronômetro.</p>
+          </div>
+        </a>
 
         {!curso ? (
           <div className="grid sm:grid-cols-2 gap-4">
