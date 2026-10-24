@@ -1,6 +1,14 @@
 # Fisiologia em Fuga
 
-## Percursos de Fisiologia — nova atividade piloto
+## Disponibilidade e novidades — 24 de outubro de 2026
+
+**Disponível ao público com entrada Google**: as salas de escape e os [Percursos de Fisiologia](https://fisiologia-em-fuga.drmarionascimento.com.br/percursos/) aceitam qualquer conta Google; não exigem inclusão em uma lista de professores. A identificação não equivale a uma sala reservada. Os cadeados dos enigmas fazem parte da atividade.
+
+Percursos de Fisiologia oferece **12 unidades selecionáveis e nove contextos**, sem separar os temas por curso. Sistemas escolhidos entram na investigação; os demais aparecem como condições fornecidas pelo caso. O conteúdo continua sendo um recorte formativo, com mapas, síntese e progresso local, aberto à utilização e avaliação pelo público.
+
+[Ver todos os recursos públicos](https://www.drmarionascimento.com.br/#acesso-publico). O acesso respeita [LICENSE.md](LICENSE.md).
+
+## Percursos de Fisiologia — atividade pública com Google
 
 [**Abrir Percursos de Fisiologia**](https://fisiologia-em-fuga.drmarionascimento.com.br/percursos/)
 
@@ -17,7 +25,7 @@ O catálogo deste projeto permanece com seis eixos de EF e cinco de Fisioterapia
 
 ## Recursos educacionais
 
-Este projeto integra os recursos educacionais do Prof. Mário César Nascimento, PhD. O acesso aos materiais disponibilizados permanece aberto ao público, conforme [LICENSE.md](LICENSE.md). Recursos de Fisiologia têm finalidade educacional e não substituem diagnóstico, prescrição nem orientação clínica individual.
+Este projeto integra os recursos educacionais do Prof. Mário César Nascimento, PhD. O acesso aos materiais disponibilizados é público, com autenticação Google nas atividades, conforme [LICENSE.md](LICENSE.md). Recursos de Fisiologia têm finalidade educacional e não substituem diagnóstico, prescrição nem orientação clínica individual.
 
 Portal do autor: https://www.drmarionascimento.com.br/
 
@@ -67,7 +75,7 @@ As duas experiências cardiovasculares constituem o primeiro lote piloto:
 
 - [Fisiologia Interativa](https://github.com/DrMarioNascimento/fisiologia-interativa) — simuladores e tutores que abrem estas salas.
 - [Atividades Extras](https://github.com/DrMarioNascimento/Atividades-Extras) — missões complementares de Fisiologia.
-- [Eita!](https://eita.dragongames.dev.br/) — quiz-batalha de sala, em testes internos.
+- [Eita!](https://eita.dragongames.dev.br/) — quiz-batalha de sala, em testes abertos.
 
 ## Desenvolvimento
 
