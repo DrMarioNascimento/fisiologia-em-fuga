@@ -1,0 +1,28 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><meta name="robots" content="noindex,nofollow"><title>Entrada Google — revisão de Ética</title><style>body{font:17px/1.5 system-ui;background:#edf3f4;color:#192e40;margin:0;padding:24px}main{max-width:480px;margin:40px auto;background:white;padding:28px;border-radius:24px}button{font:inherit;background:#12656b;color:white;border:0;padding:14px 20px;border-radius:12px;cursor:pointer}button:disabled{opacity:.5}:focus-visible{outline:3px solid #c17713;outline-offset:4px}</style></head><body><main><h1>Revisão de Percursos Éticos</h1><p>Entre com sua conta Google para retornar à atividade de Ética. Sua senha é informada somente ao Google.</p><button id="login" disabled>Entrar com Google</button><p id="status" role="status">Preparando entrada…</p></main><script type="module">
+const targetOrigin='https://etica.drmarionascimento.com.br';
+const nonce=location.hash.slice(1);history.replaceState(null,'',location.pathname);
+const button=document.getElementById('login'),status=document.getElementById('status');
+if(!window.opener||!/^[0-9a-f]{32}$/.test(nonce)){status.textContent='Abra esta janela pelo botão de revisão em Casos Éticos.';}
+else {
+try {
+ const [{initializeApp},sdk]=await Promise.all([import('https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js'),import('https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js')]);
+ const auth=sdk.getAuth(initializeApp({apiKey:'AIzaSyCDpYpar6S9X1uQvjm8yf4WXJGxXHxZLNM',authDomain:'atividades-extras-e40b6.firebaseapp.com',projectId:'atividades-extras-e40b6',appId:'1:220943378937:web:7c24574644d58a760bf528'},'etica-review-bridge'));
+ auth.languageCode='pt-BR';await sdk.setPersistence(auth,sdk.inMemoryPersistence);
+ button.disabled=false;status.textContent='Somente a conta autorizada do professor poderá abrir a revisão.';
+ button.addEventListener('click',async()=>{
+  button.disabled=true;status.textContent='Aguardando o Google…';
+  try{
+   const provider=new sdk.GoogleAuthProvider();provider.setCustomParameters({prompt:'select_account'});
+   const result=await sdk.signInWithPopup(auth,provider);
+   if(result.user.email?.toLowerCase()!=='mariocnascimento@gmail.com'||!result.user.emailVerified){await sdk.signOut(auth);status.textContent='Esta conta não está autorizada. Escolha a conta Google do professor.';return;}
+   const credential=sdk.GoogleAuthProvider.credentialFromResult(result);
+   if(!credential?.idToken)throw Error('missing-token');
+   if(!window.opener||window.opener.closed)throw Error('closed-parent');
+   window.opener.postMessage({type:'etica-review-google',nonce,idToken:credential.idToken},targetOrigin);
+   await sdk.signOut(auth);status.textContent='Entrada enviada. Retorne à janela de Ética para continuar.';
+  }catch(error){status.textContent=error.code==='auth/popup-blocked'?'Permita a janela de login Google e tente novamente.':'A entrada não foi concluída. Tente novamente.';}
+  finally{button.disabled=false;}
+ });
+}catch{status.textContent='Não foi possível carregar o Google. Confira a conexão e tente novamente.';}
+}
+</script></body></html>
