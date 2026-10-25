@@ -1,23 +1,12 @@
 # Fisiologia em Fuga
 
-## Disponibilidade e novidades — 24 de outubro de 2026
+## Acesso público — 25 de outubro de 2026
 
-**Disponível ao público com entrada Google**: as salas de escape e os [Percursos de Fisiologia](https://fisiologia-em-fuga.drmarionascimento.com.br/percursos/) aceitam qualquer conta Google; não exigem inclusão em uma lista de professores. A identificação não equivale a uma sala reservada. Os cadeados dos enigmas fazem parte da atividade.
+**Testes abertos, sem login Google, sem senha e sem cadastro.** As salas de escape são divididas em **Educação Física (EF)** e **Fisioterapia**, com roteiros próprios, sem misturar os cursos. [Percursos de Fisiologia](https://fisiologia-em-fuga.drmarionascimento.com.br/percursos/) atende **ambos os cursos** com seleção de unidades e temas.
 
-Percursos de Fisiologia oferece **12 unidades selecionáveis e nove contextos**, sem separar os temas por curso. Sistemas escolhidos entram na investigação; os demais aparecem como condições fornecidas pelo caso. O conteúdo continua sendo um recorte formativo, com mapas, síntese e progresso local, aberto à utilização e avaliação pelo público.
+O cadeado no escape room é um elemento do desafio, não uma exigência de autenticação. Não confundir com [Atividades Extras](https://atividades-extras.drmarionascimento.com.br/), cujas ferramentas de condução exigem Google do professor autorizado e permitem participação dos alunos por código/QR.
 
-[Ver todos os recursos públicos](https://www.drmarionascimento.com.br/#acesso-publico). O acesso respeita [LICENSE.md](LICENSE.md).
-
-## Percursos de Fisiologia — atividade pública com Google
-
-[**Abrir Percursos de Fisiologia**](https://fisiologia-em-fuga.drmarionascimento.com.br/percursos/)
-
-Quiz modular com 12 unidades e nove temas livres para todos os estudantes. Unidades escolhidas viram investigação; as demais entram como condições fornecidas pelo caso. Inclui ramificações de resposta, revisão de hipóteses, relações fisiológicas em diagramas, síntese, progresso local e exportação. O piloto contém um recorte por unidade e uma síntese final, sem pretensão de cobrir todos os tópicos do programa.
-
-- [Funcionamento e escopo](docs/percursos-fisiologia.md).
-- [Guia de ícones e ilustrações das histórias](docs/icones-percursos-fisiologia.md).
-- Fonte: `percursos/index.html` e `public/percursos/`; testes: `tests/percursos.cjs` (incluídos em `npm test`).
-- Acesso pela página inicial e pelo catálogo de salas; os temas não são separados por curso.
+**Regra obrigatória para agentes de IA:** [AGENTS.md](AGENTS.md). Detalhes dos percursos: [docs/percursos-fisiologia.md](docs/percursos-fisiologia.md).
 
 ## Situação do catálogo de Escape Rooms — 19 de outubro de 2026
 
@@ -25,7 +14,7 @@ O catálogo deste projeto permanece com seis eixos de EF e cinco de Fisioterapia
 
 ## Recursos educacionais
 
-Este projeto integra os recursos educacionais do Prof. Mário César Nascimento, PhD. O acesso aos materiais disponibilizados é público, com autenticação Google nas atividades, conforme [LICENSE.md](LICENSE.md). Recursos de Fisiologia têm finalidade educacional e não substituem diagnóstico, prescrição nem orientação clínica individual.
+Este projeto integra os recursos educacionais do Prof. Mário César Nascimento, PhD. O acesso aos escape rooms e aos Percursos de Fisiologia é público, sem autenticação Google, conforme [LICENSE.md](LICENSE.md). Recursos de Fisiologia têm finalidade educacional e não substituem diagnóstico, prescrição nem orientação clínica individual.
 
 Portal do autor: https://www.drmarionascimento.com.br/
 
@@ -110,14 +99,3 @@ Copyright © 2026. Todos os direitos reservados.
 
 O projeto é material educacional de uso restrito. O repositório público não é código aberto. O acesso funcional para estudo, aulas e demonstrações não autoriza copiar, adaptar, redistribuir, republicar ou explorar comercialmente o código, os cenários, os textos ou os elementos visuais. Consulte [LICENSE.md](LICENSE.md). Revisão documental desta nota: 7 de outubro de 2026.
 
-## Entrada com Google
-
-O menu tem três cards, exibidos uma única vez depois do login: Percursos de Fisiologia, Educação Física e Fisioterapia. Todas as rotas de salas e a entrada direta em `/percursos/` aguardam a sessão Google. O botão **Sair** encerra a sessão. Links diretos para salas conservam o destino e os parâmetros do tutor durante a entrada.
-
-Firebase Authentication: projeto `atividades-extras-e40b6`, já compartilhado com Atividades Extras. O domínio `fisiologia-em-fuga.drmarionascimento.com.br` foi autorizado no console. Não foram alterados os provedores existentes, regras do Firestore, salas ou permissões docentes. Qualquer conta Google pode entrar nas atividades; uma sessão anônima não libera o menu.
-
-O SDK usa apenas Authentication, sem Analytics ou envio de notas. Nome e e-mail identificam a sessão; os progressos permanecem locais. A configuração web é pública e não é uma credencial administrativa. A entrada controla a navegação da interface; como o site e o repositório são públicos, ela não torna os arquivos ou o banco de questões confidenciais. Dados privados futuros exigem autorização no servidor e regras específicas.
-
-Hospedagem: GitHub Pages em `https://fisiologia-em-fuga.drmarionascimento.com.br/`. O certificado TLS e **Enforce HTTPS** são gerenciados nas configurações Pages do repositório, não na lista de domínios autorizados do Firebase. Não foi feita migração para Firebase Hosting.
-
-Validação: `npm test` inclui os cenários de sessão ausente, carregamento, três cards únicos, links diretos, saída e bloqueio do quiz durante carregamento. `npm run build` gera as duas entradas HTML com o mesmo SDK de autenticação.
