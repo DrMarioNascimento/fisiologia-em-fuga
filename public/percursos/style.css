@@ -12,3 +12,142 @@
 .summary-map .node:disabled{opacity:1;cursor:default}
 
 .hub-return{text-decoration:none}.hub-return:hover{text-decoration:underline}@media(max-width:740px){header{flex-wrap:wrap}.header-actions{width:100%;justify-content:space-between}.brand{max-width:100%}}
+
+
+/* ============================================================
+   PERCURSOS 3D — padrão de profundidade e interação, 25/10/2026
+   Design progressivo: CSS apenas, sem interferir nas decisões,
+   nos cálculos, no estado salvo ou na saída impressa.
+   ============================================================ */
+:root{
+  --surface-top:#ffffff;--surface-base:#f2f6ef;
+  --edge-light:#ffffffed;--edge-shade:#9eafa2;
+  --depth:#aebfb1;--depth-strong:#506b5c;
+  --lift-shadow:0 5px 0 #b3c4b7,0 14px 24px #173b2e22;
+  --lift-hover:0 8px 0 #a2b9a8,0 23px 32px #173b2e2b;
+  --inset-active:inset 0 3px 9px #1e47331d,inset 0 1px 4px #183d2b16;
+}
+body{
+  background:
+    radial-gradient(ellipse 70% 42% at 8% 9%,#dcebe2b0,transparent),
+    radial-gradient(ellipse 45% 34% at 95% 33%,#e9e3d7a8,transparent),
+    var(--paper);
+}
+#pilot-shell{isolation:isolate}
+header{
+  border-bottom:1px solid #ffffffa8;
+  box-shadow:0 7px 18px #193c2d0a;
+}
+.brandmark{
+  border:1px solid #a3c8b5;
+  background:linear-gradient(145deg,#357e6c 0%,#1b4d41 70%,#10352c 100%);
+  box-shadow:inset 0 2px 0 #a1d9bb7d,inset -4px -4px 8px #082a2369,0 5px 0 #0e3028,0 11px 20px #153f3626;
+}
+.hero-art,.panel,.map-panel,.theme,.unit,.stat,.result-item,.quiz,.selection-bar,.resume,.objective,.feedback,.causal-chain div{
+  position:relative;
+  background-image:linear-gradient(145deg,#ffffffef 0%,#f5f9f3 53%,#e6eee5 100%);
+  border:1px solid var(--edge-shade);
+  border-top-color:var(--edge-light);
+  border-left-color:#ffffffed;
+  box-shadow:inset 0 2px 0 #ffffffeb,inset -3px -5px 10px #7d9a8420,var(--lift-shadow);
+}
+.hero-art{border-radius:64px 30px 68px 24px;overflow:hidden;box-shadow:inset 0 3px 0 #ffffff, inset -9px -12px 25px #58826b20,0 8px 0 #b3c8ba,0 22px 36px #113b2e23}
+.hero-art:after{content:'';position:absolute;inset:8px;pointer-events:none;border:1px solid #ffffff90;border-radius:inherit}
+.panel,.quiz,.map-panel{border-radius:32px 17px 35px 19px}
+.map-panel{background-image:linear-gradient(145deg,#f6faf2,#e2eee0)}
+.selection-bar{box-shadow:inset 0 2px 0 #fff,0 6px 0 #adbeaf,0 15px 30px #123b2b35;background:#fffef9f3}
+.stat,.result-item{border-radius:26px 14px 28px 16px}
+.objective,.feedback,.resume{background-image:linear-gradient(150deg,#f2faf0,#deecdd)}
+/* Níveis de relevo dos elementos operáveis */
+.unit,.theme,.node,.option,.primary,.secondary,.textbtn,.brand,.close{
+  -webkit-tap-highlight-color:transparent;
+  transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease,background .2s ease,filter .2s ease;
+}
+.unit,.theme{transform:translateY(0);box-shadow:inset 0 2px 0 #fff,0 5px 0 #a7bbae,0 14px 22px #153f3626}
+.unit:hover,.theme:hover{
+  transform:translateY(-4px);
+  border-color:#6f9e82;
+  box-shadow:inset 0 2px 0 #fff,var(--lift-hover);
+}
+.unit:active,.theme:active{
+  transform:translateY(3px);
+  box-shadow:var(--inset-active),0 1px 0 #aec0b1;
+}
+.unit.selected{
+  background-image:linear-gradient(145deg,#e8f8ec,#c5e5cd);
+  border-color:#4f956c;
+  box-shadow:var(--inset-active),0 2px 0 #89b898,0 7px 14px #1a5f3a20;
+}
+.unit.selected:hover{transform:translateY(-2px);box-shadow:var(--inset-active),0 5px 0 #8ab997,0 14px 20px #1a5f3a24}
+.theme-icon{
+  border:1px solid #f9fff8;
+  box-shadow:inset 0 2px 0 #fff,0 4px 0 #becdbb,0 9px 15px #143c2e24;
+  background:linear-gradient(145deg,#fff,#dfeadd);
+}
+.check{box-shadow:inset 1px 2px 3px #23573b20,0 1px 0 #fff}
+.selected .check{box-shadow:inset 0 1px 3px #092c1c80,0 2px 0 #b3c9b5}
+.node,.option{
+  position:relative;
+  background-image:linear-gradient(145deg,#fff,#eff6ec);
+  border-color:#b7cab9;
+  box-shadow:inset 0 1px 0 #fff,0 3px 0 #a6bca6,0 8px 13px #1b3d2d20;
+}
+.node:not(:disabled):hover,.option:hover{
+  transform:translateY(-2px);
+  border-color:#5f9474;
+  box-shadow:inset 0 1px 0 #fff,0 5px 0 #90ad98,0 12px 16px #183a2c24;
+}
+.node:not(:disabled):active,.option:active{
+  transform:translateY(2px);
+  box-shadow:var(--inset-active),0 1px 0 #a3b5a5;
+}
+.node.done,.option.correct{background-image:linear-gradient(145deg,#e6f6e9,#c5e7cb);border-color:#5f9970}
+.node.current,.option.selected{
+  outline:2px solid #4f9270;
+  outline-offset:2px;
+  background-image:linear-gradient(145deg,#eff8f0,#d6ecdc);
+  box-shadow:var(--inset-active),0 2px 0 #8cb69a,0 8px 14px #1f51302a;
+}
+.node.provided{background-image:linear-gradient(145deg,#f7f6f0,#ebece4);border-style:dashed}
+.node:disabled{transform:none;cursor:default;box-shadow:inset 0 2px 5px #516b4c15,0 1px 0 #fff}
+.summary-map .node:disabled{opacity:1}
+.option.wrong{background-image:linear-gradient(145deg,#fff6ed,#f6e3d0);border-color:#b88a66}
+.map-root{
+  background:linear-gradient(150deg,#35826c,#153f36 76%);
+  border:1px solid #8ec3a6;
+  box-shadow:inset 0 2px 0 #a2dab36e,0 5px 0 #113e32,0 12px 19px #153f3626;
+}
+.map-stage:before{background:#e8f1e6}
+.primary,.secondary{
+  box-shadow:inset 0 1px 0 #ffffff95,0 4px 0 #0d3b30,0 10px 15px #153f3628;
+  border-radius:15px 9px 15px 9px;
+  min-height:43px;
+}
+.primary{background:linear-gradient(145deg,#3d977c,#246b58 60%,#164839);color:#fff}
+.secondary{background:linear-gradient(145deg,#fff,#e8f2e7);border-color:#b3c7b5;box-shadow:inset 0 1px 0 #fff,0 4px 0 #a7b9a8,0 10px 15px #153f361b}
+.primary:hover:not(:disabled),.secondary:hover:not(:disabled){transform:translateY(-3px);filter:brightness(1.05)}
+.primary:active:not(:disabled),.secondary:active:not(:disabled){transform:translateY(3px);box-shadow:var(--inset-active),0 1px 0 #9db7a5}
+.textbtn:not(:disabled):hover{transform:translateY(-2px);text-shadow:0 1px 8px #3a806744}
+.textbtn:not(:disabled):active{transform:translateY(1px)}
+dialog{background:linear-gradient(155deg,#ffffff,#ebf3e9);border:1px solid #abc0af;box-shadow:inset 0 2px 0 #fff,0 9px 0 #819b87,0 30px 90px #10291d69}
+dialog::backdrop{background:#102d24a8}
+.brand:focus-visible,.unit:has(input:focus-visible),.theme:focus-visible,.node:focus-visible,.option:has(input:focus-visible),.primary:focus-visible,.secondary:focus-visible{outline:3px solid #b46f31;outline-offset:5px}
+@media(hover:none){
+ .unit:hover,.theme:hover,.node:not(:disabled):hover,.option:hover,.primary:hover:not(:disabled),.secondary:hover:not(:disabled){transform:none}
+}
+@media(max-width:740px){
+ .hero-art{border-radius:43px 18px}
+ .unit,.theme{box-shadow:inset 0 2px 0 #fff,0 3px 0 #a7bbae,0 8px 13px #153f3620}
+ .selection-bar{box-shadow:inset 0 1px 0 #fff,0 4px 0 #adbeaf,0 10px 20px #123b2b26}
+}
+@media(prefers-reduced-motion:reduce){
+ .unit,.theme,.node,.option,.primary,.secondary,.textbtn,.brand,.close{transition:none!important}
+}
+@media print{
+ body{background:#fff!important}
+ .hero-art,.panel,.map-panel,.theme,.unit,.stat,.result-item,.quiz,.selection-bar,.resume,.objective,.feedback,.causal-chain div,.node,.option,.map-root{
+  background:#fff!important;box-shadow:none!important;filter:none!important;text-shadow:none!important;transform:none!important;outline:none!important
+ }
+ .result-item,.stat,.map-panel,.node{border:1px solid #999!important}
+ .hero-art:after{display:none}
+}
