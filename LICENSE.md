@@ -83,10 +83,10 @@ Esta revisão atualiza a identificação e o escopo documental. Preserva os titu
 
 ## Escopo e disponibilidade — 24 de outubro de 2026
 
-Inclui as expressões originais das salas de escape e dos Percursos de Fisiologia: contextos, unidades selecionáveis, histórias, ramificações, mapas e sínteses. O acesso funcional educacional está disponível ao público com qualquer conta Google. A autenticação não concede direitos adicionais de reprodução.
+Inclui as expressões originais das salas de escape e dos Percursos de Fisiologia: contextos, unidades selecionáveis, histórias, ramificações, mapas e sínteses. O acesso funcional educacional está disponível ao público sem login Google, para escape rooms separados por Educação Física e Fisioterapia e Percursos de Fisiologia comuns aos dois cursos. A autenticação não concede direitos adicionais de reprodução.
 
 Esta revisão documenta o escopo e a disponibilidade atuais; preserva os titulares, as permissões e as restrições existentes, inclusive os direitos e licenças próprios de terceiros. Acesso público não equivale a licença de código aberto.
 
 Inventário de acessos: https://www.drmarionascimento.com.br/#acesso-publico
 
-**English — scope and availability, October 24, 2026:** Original components include escape rooms and Physiology Pathways, contexts, selectable units, narratives, branches, maps and summaries. Educational use is public with Google sign-in; authentication grants no additional reproduction rights. Existing ownership, grants, restrictions and third-party terms are preserved; public access does not mean open source.
+**English — scope and availability, October 24, 2026:** Original components include escape rooms and Physiology Pathways, contexts, selectable units, narratives, branches, maps and summaries. Educational use is public without Google sign-in; public access grants no additional reproduction rights. Existing ownership, grants, restrictions and third-party terms are preserved; public access does not mean open source.
