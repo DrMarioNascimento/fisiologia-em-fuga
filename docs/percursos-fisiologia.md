@@ -23,7 +23,7 @@ Todos os temas são acessíveis a todos os alunos. A correspondência de planeja
 - `public/percursos/data.js`: programa, casos, itens, condições fornecidas e relações fisiológicas.
 - `public/percursos/app.js`: navegação, avaliação, persistência e exportação.
 - `public/percursos/style.css`: interface responsiva e impressão.
-- `public/percursos/index.html`: documento de entrada e ajuda.
+- `percursos/index.html`: documento de entrada e ajuda (entrada HTML Vite; os scripts e estilos estáticos ficam em `public/percursos/`).
 - `tests/percursos.cjs`: verificação de integridade, combinação e fluxo.
 
 ## Verificação
@@ -36,6 +36,6 @@ Referências de aprofundamento estão na ajuda da aplicação. Questões autorai
 
 ## Integração ao Fisiologia em Fuga
 
-A atividade fica em `public/percursos/`, copiada pelo Vite para `dist/percursos/` durante a compilação. A página inicial e o catálogo de salas incluem acesso direto, e o quiz oferece retorno ao hub. Não depende do Sites ou de autenticação do ChatGPT. A divisão de cursos não aparece na atividade.
+A entrada HTML fica em `percursos/index.html` e os arquivos estáticos em `public/percursos/`; a compilação Vite gera `dist/percursos/`. A página inicial e o catálogo de salas incluem acesso direto, e o quiz oferece retorno ao hub. Não depende do Sites ou de autenticação do ChatGPT. A atividade é compartilhada por Educação Física e Fisioterapia; todos os temas são acessíveis aos dois cursos. Está aberta a testes públicos sem login Google.
 
 A especificação visual está em [icones-percursos-fisiologia.md](icones-percursos-fisiologia.md).
