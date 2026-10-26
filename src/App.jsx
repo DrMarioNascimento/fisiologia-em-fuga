@@ -29,6 +29,8 @@ export default function App() {
         </div>
         <footer className="px-4 py-3 text-center text-[11px] leading-relaxed text-stone-400">
           Simuladores interativos utilizados nas disciplinas de Fisiologia Humana do Prof. Dr. Mário César Nascimento ©
+          <br />
+          <a href="https://www.drmarionascimento.com.br/" className="inline-block py-2 text-stone-300 underline-offset-4 hover:underline">← Universo do Prof. Mário</a>
         </footer>
       </div>
     </>
