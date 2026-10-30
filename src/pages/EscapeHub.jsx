@@ -25,6 +25,7 @@ export default function EscapeHub() {
   return (
     <div className="escape-app min-h-screen bg-[#0d2b34] text-stone-100">
       <div className="max-w-2xl mx-auto px-6 py-10">
+        <div data-qr-intro><div data-qr-copy>
         <div className="inline-flex items-center gap-2 text-amber-300 text-xs tracking-[0.3em] uppercase mb-4">
           <KeyRound className="w-4 h-4" /> Escolha sua atividade
         </div>
@@ -33,6 +34,7 @@ export default function EscapeHub() {
           Uma sala por unidade e a Operação Protocolo Eferente, com assuntos à escolha, para se preparar para a avaliação.
         </p>
 
+        </div><div data-acesso-qr-slot /></div>
         {!curso && <a
           href={`${import.meta.env.BASE_URL}percursos/`}
           className="escape-panel-card mb-6 flex items-start gap-3 p-5"
