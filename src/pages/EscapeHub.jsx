@@ -42,9 +42,19 @@ export default function EscapeHub() {
           <GitBranch className="mt-1 h-5 w-5 shrink-0 text-emerald-300" aria-hidden="true" />
           <div>
             <h2 className="font-display text-xl mb-1">Percursos de Fisiologia</h2>
-            <p className="text-sm text-stone-400">12 unidades à escolha · nove histórias · diagrama de investigação · sem cronômetro.</p>
+            <p className="text-sm text-stone-400">Investigue uma história e conecte os mecanismos, no seu ritmo. 12 unidades à escolha · nove histórias · sem cronômetro.</p>
           </div>
         </a>}
+
+        {!curso && <details className="escape-panel-card mb-6 p-5">
+          <summary className="cursor-pointer min-h-11 flex items-center font-medium text-amber-200">Conheça o tipo de desafio</summary>
+          <div className="mt-3 space-y-3 text-sm leading-relaxed text-stone-200">
+            <p>Nos escapes, você reúne pistas e responde aos enigmas antes do tempo acabar. Cada curso tem suas próprias salas.</p>
+            <p><strong>Uma pista para experimentar:</strong> a frequência cardíaca é de 60 batimentos por minuto; outra pista informa um volume sistólico de 80 mL por batimento. Qual é o débito cardíaco?</p>
+            <details><summary className="cursor-pointer min-h-11 flex items-center text-emerald-200">Conferir o raciocínio</summary><p className="mt-2">60 × 80 = 4.800 mL/min, ou 4,8 L/min. Você reuniu duas pistas para calcular o volume bombeado por minuto. Esta prévia não tem pontuação e não altera os enigmas das salas.</p></details>
+            <p>Prefere investigar sem cronômetro? Abra Percursos de Fisiologia. Para os escapes com tempo, escolha seu curso abaixo.</p>
+          </div>
+        </details>}
 
         {!curso ? (
           <div className="grid sm:grid-cols-2 gap-4">
