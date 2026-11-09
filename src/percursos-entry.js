@@ -13,6 +13,6 @@ function loadScript(src) {
 }
 Promise.resolve()
   .then(() => loadScript(`${base}percursos/data.js`))
-  .then(() => loadScript(`${base}percursos/app.js`))
+  .then(() => loadScript(`${base}percursos/app.js?v=2`))
   .then(() => { status.hidden = true; shell.hidden = false; })
   .catch(() => { shell.hidden = true; status.hidden = false; status.textContent = 'Não foi possível carregar a atividade. Recarregue a página.'; });
