@@ -20,5 +20,5 @@ const context={document:{querySelector(s){return s==='#pilot-shell'?shell:status
 vm.runInNewContext(source,context);
 await new Promise(resolve=>setTimeout(resolve,0));
 assert.equal(shell.hidden,false);assert.equal(status.hidden,true);
-assert.deepEqual(scripts,['/percursos/data.js','/percursos/app.js']);
+assert.deepEqual(scripts.map(src=>new URL(src,'https://example.test').pathname),['/percursos/data.js','/percursos/app.js']);
 console.log('PASS: public escape routes and shared pathways require no login.');
