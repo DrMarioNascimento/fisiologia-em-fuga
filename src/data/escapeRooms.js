@@ -4,13 +4,13 @@ export const cursos = [
   {
     id: "ef",
     nome: "Educação Física",
-    desc: "Seis eixos: do potencial de ação à integração cardiorrespiratória.",
+    desc: "Doze salas, incluindo os sistemas nervosos periférico e central.",
     cor: "#65d5cc",
   },
   {
     id: "fisio",
     nome: "Fisioterapia",
-    desc: "Cinco unidades: sem o eixo osteoarticular, foco clínico.",
+    desc: "Fisiologia aplicada à Fisioterapia, incluindo o sistema osteoarticular.",
     cor: "#8ee4ad",
   },
 ];
@@ -40,7 +40,8 @@ export const rooms = [
     "id": "osteoarticular",
     "imagem": "osteoarticular.webp",
     "cursos": [
-      "ef"
+      "ef",
+      "fisio"
     ],
     "eixo": "Sistema osteoarticular",
     "titulo": "O Osso que Se Reconstrói"
@@ -74,7 +75,39 @@ export const rooms = [
     ],
     "eixo": "Integração cardiorrespiratória",
     "titulo": "A Marcha do Oxigênio"
-  }
+  },
+  {
+    "id": "linfatico",
+    "imagem": "sala-base.webp",
+    "cursos": ["ef", "fisio"],
+    "eixo": "Unidade 7 — Sistema linfático e defesa do organismo",
+    "titulo": "O Caminho da Linfa"
+  },
+  {
+    "id": "urinario",
+    "imagem": "sala-base.webp",
+    "cursos": ["ef", "fisio"],
+    "eixo": "Unidade 8 — Sistema urinário e líquidos corporais",
+    "titulo": "O Balanço da Água"
+  },
+  {
+    "id": "digestorio",
+    "imagem": "sala-base.webp",
+    "cursos": ["ef", "fisio"],
+    "eixo": "Unidade 9 — Sistema digestório",
+    "titulo": "O Percurso do Alimento"
+  },
+  {
+    "id": "reprodutor",
+    "imagem": "sala-base.webp",
+    "cursos": ["ef"],
+    "eixo": "Unidade 10 — Sistema reprodutor",
+    "titulo": "As Pistas da Reprodução"
+  },
+  {"id":"snp","imagem":"sala-base.webp","cursos":["ef"],"eixo":"Unidade 11A — Sistema nervoso periférico","titulo":"Os Caminhos da Sensação"},
+  {"id":"snc","imagem":"sala-base.webp","cursos":["ef"],"eixo":"Unidade 11B — Sistema nervoso central","titulo":"O Movimento em Construção"},
+  {"id":"tegumentar","imagem":"sala-base.webp","cursos":["fisio"],"eixo":"Unidade 10A — Sistema tegumentar","titulo":"A Barreira em Reparo"},
+  {"id":"termorregulacao","imagem":"sala-base.webp","cursos":["fisio"],"eixo":"Unidade 10B — Regulação da temperatura corporal","titulo":"O Equilíbrio do Calor"}
 ];
 
 const tutores = {

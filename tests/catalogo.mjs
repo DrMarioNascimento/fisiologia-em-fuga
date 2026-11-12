@@ -5,8 +5,36 @@ import { prepararPuzzles } from "../src/lib/game.js";
 import { montarOperacao, temasPorCurso, puzzlesPorTema, salaProtocolo } from "../src/data/protocoloEferente.js";
 
 assert.equal(cursos.length, 2);
-assert.equal(roomsPorCurso("ef").length, 6);
-assert.equal(roomsPorCurso("fisio").length, 5);
+assert.equal(roomsPorCurso("ef").length, 12);
+for (const id of ["snp", "snc"]) {
+  assert.equal(getRoom(id, "ef").puzzles.length, 6);
+  assert.equal(getRoom(id, "fisio"), undefined);
+  assert.match(urlDoTutor("ef", id, "site"), new RegExp("eixo=" + id));
+}
+assert.equal(getRoom("reprodutor", "ef").puzzles.length, 6);
+assert.equal(getRoom("reprodutor", "fisio"), undefined);
+assert.match(urlDoTutor("ef", "reprodutor", "site"), /tutor-ef\.html\?eixo=reprodutor$/);
+assert.equal(getRoom("digestorio", "ef").puzzles.length, 6);
+assert.equal(getRoom("digestorio", "fisio").puzzles.length, 6);
+assert.notEqual(getRoom("digestorio", "fisio").titulo, getRoom("digestorio", "ef").titulo);
+assert.match(urlDoTutor("ef", "digestorio", "site"), /tutor-ef\.html\?eixo=digestorio$/);
+assert.equal(getRoom("urinario", "ef").puzzles.length, 6);
+assert.equal(getRoom("urinario", "fisio").puzzles.length, 7);
+assert.notEqual(getRoom("urinario", "fisio").titulo, getRoom("urinario", "ef").titulo);
+assert.match(urlDoTutor("ef", "urinario", "site"), /tutor-ef\.html\?eixo=urinario$/);
+assert.equal(getRoom("linfatico", "ef").puzzles.length, 6);
+assert.match(urlDoTutor("fisio", "linfatico", "site"), /tutor-fisio\.html\?eixo=linfatico$/);
+assert.match(urlDoTutor("ef", "linfatico", "site"), /tutor-ef\.html\?eixo=linfatico$/);
+assert.equal(roomsPorCurso("fisio").length, 11);
+for (const id of ["tegumentar", "termorregulacao"]) {
+  assert.equal(getRoom(id, "fisio").puzzles.length, 6);
+  assert.equal(getRoom(id, "ef"), undefined);
+  assert.match(urlDoTutor("fisio", id, "site"), new RegExp("eixo=" + id));
+}
+assert.equal(getRoom("linfatico", "fisio").puzzles.length, 6);
+assert.notEqual(getRoom("linfatico", "fisio").titulo, getRoom("linfatico", "ef").titulo);
+assert.equal(getRoom("osteoarticular", "fisio").puzzles.length, 6);
+assert.notEqual(getRoom("osteoarticular", "fisio").titulo, getRoom("osteoarticular", "ef").titulo);
 assert.equal(salaProtocolo.id, "protocolo-eferente");
 assert.ok(salaProtocolo.operacao);
 assert.deepEqual(salaProtocolo.cursos, ["ef", "fisio"]);
