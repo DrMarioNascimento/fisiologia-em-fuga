@@ -106,8 +106,8 @@ export const rooms = [
   },
   {"id":"snp","imagem":"sala-base.webp","cursos":["ef"],"eixo":"Unidade 11A — Sistema nervoso periférico","titulo":"Os Caminhos da Sensação"},
   {"id":"snc","imagem":"sala-base.webp","cursos":["ef"],"eixo":"Unidade 11B — Sistema nervoso central","titulo":"O Movimento em Construção"},
-  {"id":"tegumentar","imagem":"sala-base.webp","cursos":["fisio"],"eixo":"Unidade 10A — Sistema tegumentar","titulo":"A Barreira em Reparo"},
-  {"id":"termorregulacao","imagem":"sala-base.webp","cursos":["fisio"],"eixo":"Unidade 10B — Regulação da temperatura corporal","titulo":"O Equilíbrio do Calor"}
+  {"id":"tegumentar","imagem":"sala-base.webp","cursos":["fisio"],"eixo":"Unidade 09A — Sistema tegumentar","titulo":"A Barreira em Reparo"},
+  {"id":"termorregulacao","imagem":"sala-base.webp","cursos":["fisio"],"eixo":"Unidade 09B — Regulação da temperatura corporal","titulo":"O Equilíbrio do Calor"}
 ];
 
 const tutores = {
